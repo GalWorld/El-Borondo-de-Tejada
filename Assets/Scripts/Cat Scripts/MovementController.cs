@@ -10,7 +10,10 @@ public class MovementController : MonoBehaviour
     public Transform cameraTransform;
 
     [Header("Movement Values")]
-    [SerializeField] private float speed;
+    [SerializeField] private float walkSpeed= 4;
+    [SerializeField] private float runSpeed = 6;
+
+    public bool isRunning;
 
     private Rigidbody rb;
     private Vector2 moveInput;
@@ -36,6 +39,9 @@ public class MovementController : MonoBehaviour
 
         playerInputs.Player.Movement.performed += OnMove;
         playerInputs.Player.Movement.canceled += CancelMove;
+
+        playerInputs.Player.Run.performed += OnRun;
+        playerInputs.Player.Run.canceled += OnRun;
     }
 
     private void OnDisable() {
@@ -43,9 +49,12 @@ public class MovementController : MonoBehaviour
 
         playerInputs.Player.Movement.performed -= OnMove;
         playerInputs.Player.Movement.canceled -= CancelMove;
+
+        playerInputs.Player.Run.performed -= OnRun;
+        playerInputs.Player.Run.canceled -= OnRun;
     }
     #endregion
-    
+
     #region Events
     private void OnMove(InputAction.CallbackContext context)
     {
@@ -55,10 +64,17 @@ public class MovementController : MonoBehaviour
     {
         moveInput = Vector2.zero;
     }
+    private void OnRun(InputAction.CallbackContext context)
+    {
+        isRunning = context.performed;
+    }
     #endregion
 
     private void HandleMovement()
     {
+        //if isRunning speed gonna be runSpeed
+        float currentSpeed = isRunning ? runSpeed:walkSpeed;
+
         // Get the foward and right direction of the camera
         Vector3 cameraForward = cameraTransform.forward;
         Vector3 cameraRight = cameraTransform.right;
@@ -75,7 +91,7 @@ public class MovementController : MonoBehaviour
         moveDirection = (cameraForward * moveInput.y + cameraRight * moveInput.x).normalized;
 
         // Update the Rigidbody's velocity with the calculated movement direction
-        rb.velocity = moveDirection * speed + new Vector3(0, rb.velocity.y, 0);
+        rb.velocity = moveDirection * currentSpeed + new Vector3(0, rb.velocity.y, 0);
     }
 
 }
