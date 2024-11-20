@@ -13,6 +13,8 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float walkSpeed= 4;
     [SerializeField] private float runSpeed = 6;
 
+    [SerializeField] private float rotationSpeed = 1;
+
     public bool isRunning;
 
     private Rigidbody rb;
@@ -31,6 +33,7 @@ public class MovementController : MonoBehaviour
 
     private void FixedUpdate() {
         HandleMovement();
+        RotateCharacter();
     }
 
     #region Player Input Management
@@ -92,6 +95,19 @@ public class MovementController : MonoBehaviour
 
         // Update the Rigidbody's velocity with the calculated movement direction
         rb.velocity = moveDirection * currentSpeed + new Vector3(0, rb.velocity.y, 0);
+    }
+
+    private void RotateCharacter()
+    {
+        if (moveDirection != Vector3.zero)
+        {
+            // calculates the rotation with respect to the direction of motion
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+
+            // smooth interpolate between the actual rotation to target rotation 
+            //we use .Slerp because the movement is smoother than other functions that are linear
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
     }
 
 }
