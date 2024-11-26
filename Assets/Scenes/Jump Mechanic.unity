@@ -1710,9 +1710,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 490772709931548648, guid: 94f6f8e22407a7f4bab4ed79b9f5c3d3,
         type: 3}
+      propertyPath: jumpForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 490772709931548648, guid: 94f6f8e22407a7f4bab4ed79b9f5c3d3,
+        type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 1606397309}
+    - target: {fileID: 490772709931548648, guid: 94f6f8e22407a7f4bab4ed79b9f5c3d3,
+        type: 3}
+      propertyPath: raycastDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2488013561489797322, guid: 94f6f8e22407a7f4bab4ed79b9f5c3d3,
         type: 3}
       propertyPath: m_Name

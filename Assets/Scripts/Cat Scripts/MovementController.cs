@@ -20,6 +20,10 @@ public class MovementController : MonoBehaviour
 
     public bool isRunning;
 
+    [Header("Jump Values")]
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float raycastDistance;
+
     private Rigidbody rb;
     private Vector2 moveInput;
     private Vector3 moveDirection;
@@ -111,6 +115,19 @@ public class MovementController : MonoBehaviour
             // smooth interpolate between the actual rotation to target rotation 
             //we use .Slerp because the movement is smoother than other functions that are linear
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+
+    private void Jumping()
+    {
+        // get a global -y component transforming the local direction to global with TransformDirection
+        Vector3 dwn = transform.TransformDirection(Vector3.down);
+
+        // if the raycast hit with other collider in direction down can't jump
+        if(Physics.Raycast(transform.position, dwn, raycastDistance))
+        {
+            rb.AddForce(jumpForce * Vector3.up);
+            print("Jumping");
         }
     }
 
