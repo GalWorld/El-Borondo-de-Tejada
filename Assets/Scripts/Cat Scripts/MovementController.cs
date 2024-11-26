@@ -10,9 +10,12 @@ public class MovementController : MonoBehaviour
     public Transform cameraTransform;
 
     [Header("Movement Values")]
+    [Range(0.0f, 10.0f)]
     [SerializeField] private float walkSpeed= 4;
+    [Range(0.0f, 10.0f)]
     [SerializeField] private float runSpeed = 6;
 
+    [Range(0.0f, 10.0f)]
     [SerializeField] private float rotationSpeed = 1;
 
     public bool isRunning;
@@ -29,6 +32,7 @@ public class MovementController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        cameraTransform = Camera.main.transform;
     }
 
     private void FixedUpdate() {
