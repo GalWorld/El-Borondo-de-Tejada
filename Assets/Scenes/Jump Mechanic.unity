@@ -380,7 +380,7 @@ Transform:
   m_GameObject: {fileID: 317695328}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.76, z: -2}
+  m_LocalPosition: {x: 2.114, y: 2.625, z: -1.715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -776,7 +776,7 @@ Transform:
   m_GameObject: {fileID: 1012266614}
   serializedVersion: 2
   m_LocalRotation: {x: 0.13162144, y: 0, z: 0, w: 0.99130005}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00000011920929}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -855,7 +855,7 @@ Transform:
   m_GameObject: {fileID: 1067003934}
   serializedVersion: 2
   m_LocalRotation: {x: 0.14958343, y: 0, z: 0, w: 0.98874915}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00000011920929}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1497,8 +1497,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606397306}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14958346, y: -0.000000014733511, z: 0.0000000022289675, w: 0.9887491}
-  m_LocalPosition: {x: 0, y: 0.76, z: -2}
+  m_LocalRotation: {x: 0.14958337, y: 0.0000079078145, z: -0.0000011963372, w: 0.98874915}
+  m_LocalPosition: {x: 2.114, y: 2.625, z: -1.715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1710,19 +1710,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 490772709931548648, guid: 94f6f8e22407a7f4bab4ed79b9f5c3d3,
         type: 3}
-      propertyPath: jumpForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 490772709931548648, guid: 94f6f8e22407a7f4bab4ed79b9f5c3d3,
-        type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 1606397309}
-    - target: {fileID: 490772709931548648, guid: 94f6f8e22407a7f4bab4ed79b9f5c3d3,
-        type: 3}
-      propertyPath: raycastDistance
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2488013561489797322, guid: 94f6f8e22407a7f4bab4ed79b9f5c3d3,
         type: 3}
       propertyPath: m_Name
@@ -1731,17 +1721,17 @@ PrefabInstance:
     - target: {fileID: 2970966893966954917, guid: 94f6f8e22407a7f4bab4ed79b9f5c3d3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.114
       objectReference: {fileID: 0}
     - target: {fileID: 2970966893966954917, guid: 94f6f8e22407a7f4bab4ed79b9f5c3d3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.06
+      value: 1.925
       objectReference: {fileID: 0}
     - target: {fileID: 2970966893966954917, guid: 94f6f8e22407a7f4bab4ed79b9f5c3d3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.285
       objectReference: {fileID: 0}
     - target: {fileID: 2970966893966954917, guid: 94f6f8e22407a7f4bab4ed79b9f5c3d3,
         type: 3}

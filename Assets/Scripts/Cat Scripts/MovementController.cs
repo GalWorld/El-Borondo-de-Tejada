@@ -23,6 +23,7 @@ public class MovementController : MonoBehaviour
     [Header("Jump Values")]
     [SerializeField] private float jumpForce;
     [SerializeField] private float raycastDistance;
+    private bool canJump = false;
 
     private Rigidbody rb;
     private Vector2 moveInput;
@@ -42,6 +43,7 @@ public class MovementController : MonoBehaviour
     private void FixedUpdate() {
         HandleMovement();
         RotateCharacter();
+        ValidationJump();
     }
 
     #region Player Input Management
@@ -53,6 +55,8 @@ public class MovementController : MonoBehaviour
 
         playerInputs.Player.Run.performed += OnRun;
         playerInputs.Player.Run.canceled += OnRun;
+
+        playerInputs.Player.Jump.performed += OnJump;
     }
 
     private void OnDisable() {
@@ -63,6 +67,8 @@ public class MovementController : MonoBehaviour
 
         playerInputs.Player.Run.performed -= OnRun;
         playerInputs.Player.Run.canceled -= OnRun;
+
+        playerInputs.Player.Jump.performed -= OnJump;
     }
     #endregion
 
@@ -78,6 +84,14 @@ public class MovementController : MonoBehaviour
     private void OnRun(InputAction.CallbackContext context)
     {
         isRunning = context.performed;
+    }
+
+    private void OnJump(InputAction.CallbackContext context)
+    {
+        if(context.performed && canJump)
+        {
+            Jump();
+        }
     }
     #endregion
 
@@ -113,22 +127,39 @@ public class MovementController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
 
             // smooth interpolate between the actual rotation to target rotation 
-            //we use .Slerp because the movement is smoother than other functions that are linear
+            //we use .Slerp because the movement is smoother than other linear functions 
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
 
-    private void Jumping()
+    private void ValidationJump()
     {
         // get a global -y component transforming the local direction to global with TransformDirection
         Vector3 dwn = transform.TransformDirection(Vector3.down);
 
-        // if the raycast hit with other collider in direction down can't jump
-        if(Physics.Raycast(transform.position, dwn, raycastDistance))
+        // create the raycast origin with a little desphase
+        Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
+
+        Debug.DrawRay(rayOrigin, dwn * raycastDistance, Color.yellow); 
+
+        // if the raycast hit with other collider in direction down can Jump
+        //the raycast gonna ignore the player layer
+        canJump = Physics.Raycast(rayOrigin, dwn, raycastDistance, gameObject.layer);
+
+        /*if(Physics.Raycast(rayOrigin, dwn, raycastDistance, gameObject.layer))
         {
-            rb.AddForce(jumpForce * Vector3.up);
-            print("Jumping");
+            canJump = true;
         }
+        else
+        {
+            canJump = false;
+        }*/
+        
+    }
+    private void Jump()
+    {
+        //applies an upward force to the player
+        rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
     }
 
 }
