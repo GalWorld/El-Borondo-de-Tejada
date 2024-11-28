@@ -7,27 +7,45 @@ using UnityEngine.InputSystem;
 public class MovementController : MonoBehaviour
 {
     [Header("Scene References")]
+    [Tooltip("The transform of the camera used for determining movement direction.")]
     public Transform cameraTransform;
 
     [Header("Movement Values")]
+    [Tooltip("The speed at which the player walks.")]
     [Range(0.0f, 10.0f)]
-    [SerializeField] private float walkSpeed= 4;
+    [SerializeField] private float walkSpeed = 4;
+
+    [Tooltip("The speed at which the player runs.")]
     [Range(0.0f, 10.0f)]
     [SerializeField] private float runSpeed = 6;
 
+    [Tooltip("The speed at which the player rotates.")]
     [Range(0.0f, 10.0f)]
     [SerializeField] private float rotationSpeed = 1;
 
+    [Tooltip("Indicates whether the player is running.")]
     public bool isRunning;
 
     [Header("Jump Values")]
+    [Tooltip("The force applied to the player when jumping.")]
     [SerializeField] private float jumpForce;
+
+    [Tooltip("The distance used for raycasting to check ground collision.")]
     [SerializeField] private float raycastDistance;
+
+    // Tracks if the player is currently able to jump.
     private bool canJump = false;
 
+    // The Rigidbody component used for physics-based movement.
     private Rigidbody rb;
+
+    // Stores the input from the player for movement.
     private Vector2 moveInput;
+
+    // The calculated direction the player will move in.
     private Vector3 moveDirection;
+
+    // Handles player inputs from the input system.
     private PlayerInputs playerInputs;
 
     private void Awake() {
@@ -127,7 +145,7 @@ public class MovementController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
 
             // smooth interpolate between the actual rotation to target rotation 
-            //we use .Slerp because the movement is smoother than other linear functions 
+            // use .Slerp because the movement is smoother than other linear functions 
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
@@ -142,19 +160,9 @@ public class MovementController : MonoBehaviour
 
         Debug.DrawRay(rayOrigin, dwn * raycastDistance, Color.yellow); 
 
-        // if the raycast hit with other collider in direction down can Jump
-        //the raycast gonna ignore the player layer
+        /* if the raycast hit with other collider in direction down can Jump 
+        additionally the raycast gonna ignore the player layer*/
         canJump = Physics.Raycast(rayOrigin, dwn, raycastDistance, gameObject.layer);
-
-        /*if(Physics.Raycast(rayOrigin, dwn, raycastDistance, gameObject.layer))
-        {
-            canJump = true;
-        }
-        else
-        {
-            canJump = false;
-        }*/
-        
     }
     private void Jump()
     {
