@@ -24,7 +24,7 @@ AnimatorStateTransition:
   m_CanTransitionToSelf: 1
 --- !u!1102 &-4578333562000920462
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -51,7 +51,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &-4304283574756904737
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -101,7 +101,7 @@ AnimatorStateTransition:
   m_CanTransitionToSelf: 1
 --- !u!1102 &-1647396116958769058
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -173,7 +173,7 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
 --- !u!1102 &227224688728251605
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -201,7 +201,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1107 &2010397050945934638
 AnimatorStateMachine:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -213,16 +213,16 @@ AnimatorStateMachine:
     m_Position: {x: 240, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7533513640193287866}
-    m_Position: {x: 250, y: 310, z: 0}
+    m_Position: {x: 310, y: 420, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1647396116958769058}
-    m_Position: {x: 250, y: 380, z: 0}
+    m_Position: {x: 520, y: 580, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4304283574756904737}
-    m_Position: {x: 250, y: 260, z: 0}
+    m_Position: {x: 660, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4578333562000920462}
-    m_Position: {x: 250, y: 460, z: 0}
+    m_Position: {x: 70, y: 570, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -257,7 +257,7 @@ AnimatorStateTransition:
   m_CanTransitionToSelf: 1
 --- !u!1102 &7533513640193287866
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
