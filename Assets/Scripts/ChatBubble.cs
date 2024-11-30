@@ -30,7 +30,7 @@ public class ChatBubble : MonoBehaviour
 
     private void Start() 
     {
-        SetUp("Mariposa", "Hello World");    
+        SetUp("Mariposa", "Ve hacia el portal para encontrar una de tus preciadas gatas!");    
     }
 
     private void FixedUpdate() 
