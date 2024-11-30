@@ -260,6 +260,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4437435323704501411, guid: 6a2082c394c635f4a8546d44149c7c3c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7583493030713407976, guid: 6a2082c394c635f4a8546d44149c7c3c,
         type: 3}
       propertyPath: m_Name
@@ -331,7 +336,7 @@ PrefabInstance:
     - target: {fileID: 6130214007347771450, guid: 4675c0fe859d8bf468c713badb8d53c2,
         type: 3}
       propertyPath: m_Name
-      value: Cruz (1)
+      value: Cross-1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -868,7 +873,7 @@ PrefabInstance:
     - target: {fileID: 6130214007347771450, guid: 4675c0fe859d8bf468c713badb8d53c2,
         type: 3}
       propertyPath: m_Name
-      value: Cruz (2)
+      value: Cross-2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1196,7 +1201,7 @@ PrefabInstance:
     - target: {fileID: 6130214007347771450, guid: 4675c0fe859d8bf468c713badb8d53c2,
         type: 3}
       propertyPath: m_Name
-      value: Cruz
+      value: Cross
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1264,7 +1269,7 @@ PrefabInstance:
     - target: {fileID: 4437435323704501411, guid: 6a2082c394c635f4a8546d44149c7c3c,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7583493030713407976, guid: 6a2082c394c635f4a8546d44149c7c3c,
         type: 3}
