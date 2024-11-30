@@ -25,11 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: f88843fb1a12c034ea29c4fdba25c5bd, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Mask:
-        m_Texture: {fileID: 10307, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 2800000, guid: 168ed7b3c5d0c8f438a62bbfbb32514a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_5121292de1e441adace8bea66797e878_Out_0_Texture2D:
@@ -50,13 +46,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Brightness_Power: 1
+    - _Brightness_Power: 2
     - _Speed_Spin: 0.2
     - _Strength_Twirl: 10
     m_Colors:
-    - _Color: {r: 0.990566, g: 0.34109113, b: 0.34109113, a: 0}
+    - _Color: {r: 0.4481132, g: 0.70528895, b: 1, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &154616508330709506
+--- !u!114 &6313981508702164688
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
