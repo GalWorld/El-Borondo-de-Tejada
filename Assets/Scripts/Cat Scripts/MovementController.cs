@@ -66,7 +66,7 @@ public class MovementController : MonoBehaviour
 
     private void Awake() {
         playerInputs = new();
-        OnApplicationFocus(); //This metod hide the mouse cursor during the game
+        OnApplicationFocus(cursorLocked); //This metod hide the mouse cursor during the game
     }
 
     void Start()
