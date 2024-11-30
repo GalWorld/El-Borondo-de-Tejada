@@ -33,6 +33,10 @@ public class MovementController : MonoBehaviour
     [Tooltip("The distance used for raycasting to check ground collision.")]
     [SerializeField] private float raycastDistance;
 
+    [Header("Mouse Cursor Settings")]
+    public bool cursorLocked = true;
+    public bool cursorInputForLook = true;
+
     // Tracks if the player is currently able to jump.
     private bool canJump = false;
 
@@ -48,13 +52,27 @@ public class MovementController : MonoBehaviour
     // Handles player inputs from the input system.
     private PlayerInputs playerInputs;
 
+    // References the animator
+    private Animator animator;
+
+    //Handle the current player speed
+    private float currentSpeed;
+
+    //Speed fot the animator
+    private float animSpeed = 0f; 
+
+    //Auxiliar speed for SmoothDamp
+    private float speedVelocity = 0f; 
+
     private void Awake() {
         playerInputs = new();
+        OnApplicationFocus(); //This metod hide the mouse cursor during the game
     }
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>(); 
         cameraTransform = Camera.main.transform;
     }
 
@@ -62,6 +80,7 @@ public class MovementController : MonoBehaviour
         HandleMovement();
         RotateCharacter();
         ValidationJump();
+        UpdateAnimator();
     }
 
     #region Player Input Management
@@ -113,10 +132,28 @@ public class MovementController : MonoBehaviour
     }
     #endregion
 
+     private void UpdateAnimator()
+    { 
+        // Calculate the target speed based on the movement magnitude
+        float rawSpeed = new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude;
+
+        // Normalize the target speed
+        float targetSpeed = Mathf.Clamp01(rawSpeed / runSpeed);
+
+        // Smoothly transition the animation speed using SmoothDamp
+        animSpeed = Mathf.SmoothDamp(animSpeed, targetSpeed, ref speedVelocity, 0.2f);
+
+        // Correct small values to avoid fluctuations
+        if (Mathf.Abs(animSpeed) < 0.01f) animSpeed = 0f;
+
+        // Update the parameter in the Animator
+        animator.SetFloat("SpeedAnim", animSpeed);
+    }
+
     private void HandleMovement()
     {
         //if isRunning speed gonna be runSpeed
-        float currentSpeed = isRunning ? runSpeed:walkSpeed;
+        currentSpeed = isRunning ? runSpeed:walkSpeed;
 
         // Get the foward and right direction of the camera
         Vector3 cameraForward = cameraTransform.forward;
@@ -168,6 +205,16 @@ public class MovementController : MonoBehaviour
     {
         //applies an upward force to the player
         rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        SetCursorState(cursorLocked);
+    }
+
+    private void SetCursorState(bool newState)
+    {
+        Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
     }
 
 }
