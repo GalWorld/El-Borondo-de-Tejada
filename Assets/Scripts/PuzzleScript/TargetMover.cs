@@ -12,12 +12,12 @@ public class TargetMover : MonoBehaviour
     // Start Movement
     public void MoveToNextPoint()
     {
-        if (points.Length == 0) return;
+        if (points.Length == 0) return; // Check if there are points in the array
 
-        // Update new points
+        // Update new point index (in sequential order)
         currentPointIndex = (currentPointIndex + 1) % points.Length;
 
-        // Start Movement coroutine
+        // Start Movement coroutine if not already moving
         if (!isMoving)
         {
             StartCoroutine(MoveToPoint(points[currentPointIndex].position));
@@ -29,13 +29,13 @@ public class TargetMover : MonoBehaviour
     {
         isMoving = true;
 
-        while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        while (Vector3.Distance(transform.position, targetPosition) > 0.1f) // Check if we are close enough
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            yield return null;
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime); // Move towards the target
+            yield return null; // Wait until the next frame
         }
 
-        transform.position = targetPosition; 
+        transform.position = targetPosition; // Snap to the final position
         isMoving = false;
     }
 }

@@ -413,6 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetMover: {fileID: 8610320983029087072}
+  interactText: Gira la lampara
 --- !u!1 &7265468384160445748
 GameObject:
   m_ObjectHideFlags: 0
