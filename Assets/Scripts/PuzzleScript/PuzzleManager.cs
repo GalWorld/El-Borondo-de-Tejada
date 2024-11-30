@@ -6,6 +6,8 @@ public class PuzzleManager : MonoBehaviour
 {
     public static PuzzleManager Instance; 
 
+    [SerializeField] CatManager catManager;
+
     [SerializeField] TriggerLogger[] triggerLogger; 
 
     private void Awake()
@@ -36,5 +38,10 @@ public class PuzzleManager : MonoBehaviour
     private void PuzzleFinished()
     {
         Debug.Log("Puzzle Completed");
+
+          if (catManager != null)
+        {
+            catManager.SwapCats();
+        }
     }
 }

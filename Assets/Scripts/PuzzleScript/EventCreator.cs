@@ -5,6 +5,7 @@ using UnityEngine;
 public class EventCreator : MonoBehaviour, IInteractable
 {
     [SerializeField] TargetMover targetMover; // TargetMover Reference
+    [SerializeField] private string interactText;
 
     public void Interact(Transform interactorTransform)
     {
@@ -16,6 +17,6 @@ public class EventCreator : MonoBehaviour, IInteractable
 
     public string GetInteractText()
     {
-        throw new System.NotImplementedException();
+        return interactText;
     }
 }
