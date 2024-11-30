@@ -6,12 +6,16 @@ public class EventCreator : MonoBehaviour, IInteractable
 {
     [SerializeField] TargetMover targetMover; // TargetMover Reference
 
-    public void Interact(){
-        //Debug.Log("Touch it");
-
+    public void Interact(Transform interactorTransform)
+    {
         if (targetMover != null)
         {
             targetMover.MoveToNextPoint();
         }
+    }
+
+    public string GetInteractText()
+    {
+        throw new System.NotImplementedException();
     }
 }
