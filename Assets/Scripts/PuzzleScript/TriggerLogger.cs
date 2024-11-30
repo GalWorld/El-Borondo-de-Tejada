@@ -12,8 +12,8 @@ public class TriggerLogger : MonoBehaviour
         if (other.CompareTag(targetTag))
         {
             isActivated = true; 
-            //Debug.Log($"{gameObject.name} Activated for {other.name}");
-            PuzzleManager.Instance.CheckPuzzleCompletion(); 
+            Debug.Log($"{gameObject.name} Activated for {other.name}");
+            //PuzzleManager.Instance.CheckPuzzleCompletion(); 
         }
     }
 
