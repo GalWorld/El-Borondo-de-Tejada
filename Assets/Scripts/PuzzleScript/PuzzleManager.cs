@@ -6,7 +6,7 @@ public class PuzzleManager : MonoBehaviour
 {
     public static PuzzleManager Instance; 
 
-    public TriggerLogger[] triggerLogger; 
+    [SerializeField] TriggerLogger[] triggerLogger; 
 
     private void Awake()
     {
@@ -22,9 +22,9 @@ public class PuzzleManager : MonoBehaviour
 
     public void CheckPuzzleCompletion()
     {
-        foreach (TriggerLogger cruz in triggerLogger)
+        foreach (TriggerLogger cross in triggerLogger)
         {
-            if (!cruz.isActivated)
+            if (!cross.isActivated)
             {
                 return;
             }

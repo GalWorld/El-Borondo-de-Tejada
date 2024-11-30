@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TargetMover : MonoBehaviour
 {
-    public Transform[] points; // Points Array
-    public float moveSpeed = 2f; // Move Speed
+    [SerializeField] Transform[] points; // Points Array
+    private float moveSpeed = 2f; // Move Speed
     private int currentPointIndex = 0; // Current Point
     private bool isMoving = false; // Moving Boolean
 

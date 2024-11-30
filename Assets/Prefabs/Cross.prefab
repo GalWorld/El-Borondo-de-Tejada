@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 9120840617532237121}
   - component: {fileID: 8642888280428263096}
   m_Layer: 0
-  m_Name: Cruz
-  m_TagString: Cruz
+  m_Name: Cross
+  m_TagString: Cross
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

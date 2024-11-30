@@ -5,13 +5,10 @@ using UnityEngine;
 interface IInteractable{
     public void Interact();
 }
-
-
 public class Interactor : MonoBehaviour
 {
-
-    public Transform InteractorSource;
-    public float InteractorRange;
+    [SerializeField] Transform InteractorSource;
+    [SerializeField] float InteractorRange;
     // Update is called once per frame
     void Update()
     {

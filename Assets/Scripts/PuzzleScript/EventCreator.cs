@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EventCreator : MonoBehaviour, IInteractable
 {
-    public TargetMover targetMover; // TargetMover Reference
+    [SerializeField] TargetMover targetMover; // TargetMover Reference
 
     public void Interact(){
-        //Debug.Log("Tocalo");
+        //Debug.Log("Touch it");
 
         if (targetMover != null)
         {
