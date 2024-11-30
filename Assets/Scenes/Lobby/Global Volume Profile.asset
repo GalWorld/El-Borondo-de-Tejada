@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   redOutRedIn:
-    m_OverrideState: 1
-    m_Value: 110
-  redOutGreenIn:
     m_OverrideState: 0
-    m_Value: 0
-  redOutBlueIn:
+    m_Value: 100
+  redOutGreenIn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -30
+  redOutBlueIn:
+    m_OverrideState: 0
+    m_Value: -10
   greenOutRedIn:
     m_OverrideState: 0
     m_Value: 0
@@ -35,11 +35,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   blueOutGreenIn:
-    m_OverrideState: 0
-    m_Value: 0
-  blueOutBlueIn:
     m_OverrideState: 1
-    m_Value: 147
+    m_Value: -5
+  blueOutBlueIn:
+    m_OverrideState: 0
+    m_Value: 100
 --- !u!114 &-4089289001340640121
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -95,13 +95,13 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 1.81
   contrast:
     m_OverrideState: 1
     m_Value: 5
   colorFilter:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.9795597, g: 0.9386792, b: 1, a: 1}
   hueShift:
     m_OverrideState: 0
     m_Value: 0
@@ -144,10 +144,10 @@ MonoBehaviour:
     m_Value: 1
   gaussianStart:
     m_OverrideState: 1
-    m_Value: 60
+    m_Value: 5
   gaussianEnd:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: 50
   gaussianMaxRadius:
     m_OverrideState: 0
     m_Value: 1
@@ -187,16 +187,16 @@ MonoBehaviour:
   active: 1
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.2683339, g: 0.37203428, b: 0.8490566, a: 1}
+    m_Value: {r: 0.14391243, g: 0.24261875, b: 0.9245283, a: 1}
   center:
     m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.496
+    m_Value: 0.3
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.363
+    m_Value: 0.261
   rounded:
     m_OverrideState: 0
     m_Value: 0
