@@ -58,11 +58,6 @@ public class MovementController : MonoBehaviour
     //Handle the current player speed
     private float currentSpeed;
 
-    //Speed fot the animator
-    private float animSpeed = 0f; 
-
-    //Auxiliar speed for SmoothDamp
-    private float speedVelocity = 0f; 
 
     private void Awake() {
         playerInputs = new();
@@ -132,22 +127,15 @@ public class MovementController : MonoBehaviour
     }
     #endregion
 
-     private void UpdateAnimator()
+    private void UpdateAnimator()
     { 
-        // Calculate the target speed based on the movement magnitude
-        float rawSpeed = new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude;
+        // Directly assign movement input to the animator parameters
+        float horizontal = moveInput.x; // Horizontal input (-1 to 1)
+        float vertical = moveInput.y;   // Vertical input (-1 to 1)
 
-        // Normalize the target speed
-        float targetSpeed = Mathf.Clamp01(rawSpeed / runSpeed);
-
-        // Smoothly transition the animation speed using SmoothDamp
-        animSpeed = Mathf.SmoothDamp(animSpeed, targetSpeed, ref speedVelocity, 0.2f);
-
-        // Correct small values to avoid fluctuations
-        if (Mathf.Abs(animSpeed) < 0.01f) animSpeed = 0f;
-
-        // Update the parameter in the Animator
-        animator.SetFloat("SpeedAnim", animSpeed);
+        // Update the parameters in the Animator
+        animator.SetFloat("Horizontal", horizontal);
+        animator.SetFloat("Vertical", vertical);
     }
 
     private void HandleMovement()

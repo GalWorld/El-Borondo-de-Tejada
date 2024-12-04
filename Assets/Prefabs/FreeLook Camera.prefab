@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951703907953578024}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.084776126, y: 0.5772969, z: -0.06043067, w: 0.80987006}
+  m_LocalRotation: {x: 0.104109846, y: 0.000000007410094, z: -7.756789e-10, w: 0.99456584}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_RollDamping: 0
   m_AngularDamping: 0
   m_Heading:
-    m_Definition: 0
+    m_Definition: 2
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_RollDamping: 0
   m_AngularDamping: 0
   m_Heading:
-    m_Definition: 0
+    m_Definition: 2
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:
@@ -358,7 +358,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4965823392993669749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07006992, y: 0.5782981, z: -0.04994771, w: 0.81127477}
+  m_LocalRotation: {x: 0.08604984, y: -1.7648397e-15, z: 1.5485422e-17, w: 0.99629086}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -422,7 +422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5241590357248912486}
   - component: {fileID: 6706584639515012428}
-  - component: {fileID: 3002222658943730953}
+  - component: {fileID: 1091052686500743005}
   m_Layer: 0
   m_Name: FreeLook Camera
   m_TagString: Untagged
@@ -530,7 +530,7 @@ MonoBehaviour:
       m_LegacyHeadingDefinition: -1
       m_LegacyVelocityFilterStrength: -1
   m_Heading:
-    m_Definition: 0
+    m_Definition: 2
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:
@@ -553,7 +553,7 @@ MonoBehaviour:
   - {fileID: 3839177296207039498}
   - {fileID: 8049377000328561077}
   - {fileID: 9204914758782066028}
---- !u!114 &3002222658943730953
+--- !u!114 &1091052686500743005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -652,7 +652,7 @@ MonoBehaviour:
   m_RollDamping: 0
   m_AngularDamping: 0
   m_Heading:
-    m_Definition: 0
+    m_Definition: 2
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:
@@ -735,7 +735,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8074093998846537677}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09949322, y: 0.5761022, z: -0.07092139, w: 0.80819404}
+  m_LocalRotation: {x: 0.12218326, y: 0, z: 0, w: 0.9925076}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
