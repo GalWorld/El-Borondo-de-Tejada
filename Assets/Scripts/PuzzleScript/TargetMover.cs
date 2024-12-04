@@ -5,23 +5,20 @@ using UnityEngine;
 public class TargetMover : MonoBehaviour
 {
     [SerializeField] Transform[] points; // Points Array
-    private float moveSpeed = 2f; // Move Speed
+    private float moveSpeed = 4f; // Move Speed
     private int currentPointIndex = 0; // Current Point
     private bool isMoving = false; // Moving Boolean
 
     // Start Movement
     public void MoveToNextPoint()
     {
-        if (points.Length == 0) return; // Check if there are points in the array
+        if (points.Length == 0 || isMoving) return; // No hacer nada si ya está moviéndose
 
-        // Update new point index (in sequential order)
+        // Actualizar el índice al siguiente punto
         currentPointIndex = (currentPointIndex + 1) % points.Length;
 
-        // Start Movement coroutine if not already moving
-        if (!isMoving)
-        {
-            StartCoroutine(MoveToPoint(points[currentPointIndex].position));
-        }
+        // Iniciar la corrutina de movimiento
+        StartCoroutine(MoveToPoint(points[currentPointIndex].position));
     }
 
     // Movement coroutine
@@ -33,6 +30,7 @@ public class TargetMover : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime); // Move towards the target
             yield return null; // Wait until the next frame
+            //Debug.Log(points[currentPointIndex]);
         }
 
         transform.position = targetPosition; // Snap to the final position

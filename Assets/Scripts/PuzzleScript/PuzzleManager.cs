@@ -39,9 +39,9 @@ public class PuzzleManager : MonoBehaviour
     {
         Debug.Log("Puzzle Completed");
 
-          if (catManager != null)
-        {
-            catManager.SwapCats();
-        }
+        //   if (catManager != null)
+        // {
+        //     catManager.SwapCats();
+        // }
     }
 }
