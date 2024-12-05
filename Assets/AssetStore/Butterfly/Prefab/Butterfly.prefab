@@ -646,9 +646,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aaec33eba40e1842a6fb81586d73684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chatBubblePrefab: {fileID: 7641249360178948261, guid: 71617a9526deb9a4b83b79f7b57b764d,
-    type: 3}
+  chatInterfaceUI: {fileID: 0}
+  playerInteractUI: {fileID: 0}
+  ownerNameText: {fileID: 0}
+  chatText: {fileID: 0}
+  ownerImage: {fileID: 0}
   interactText: Habla con Mary
+  messages:
+  - ownerName: Mary
+    messageContent: "Hola Gato, \xBFC\xF3mo te encuentras?"
+    ownerImage: {fileID: 0}
+  - ownerName: Tejada
+    messageContent: "Bien Mary, pero preocupado. No encuentro a Anabella, \xBFt\xFA
+      las has visto?"
+    ownerImage: {fileID: 0}
+  - ownerName: Mary
+    messageContent: "Creo que estaba por las tres cruces, pero te tocar\xEDa ver."
+    ownerImage: {fileID: 0}
+  - ownerName: Tejada
+    messageContent: Gracias Mary.
+    ownerImage: {fileID: 0}
 --- !u!135 &1901966412375896466
 SphereCollider:
   m_ObjectHideFlags: 0
