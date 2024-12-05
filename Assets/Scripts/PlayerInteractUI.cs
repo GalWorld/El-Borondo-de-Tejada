@@ -8,6 +8,7 @@ public class PlayerInteractUI : MonoBehaviour
     private GameObject uiImage;
     private Text interactText;
     private PlayerInteract playerInteract;
+    public bool _IsInteract;
 
     private void Awake() 
     {
@@ -24,6 +25,12 @@ public class PlayerInteractUI : MonoBehaviour
         } else 
         {
             Hide();
+        }
+
+        if (_IsInteract) 
+        { 
+            Hide(); 
+            _IsInteract = false;
         }
     }
 
