@@ -8,6 +8,8 @@ TagManager:
   - Cruz
   - Cross
   - Cat
+  - Terrain
+  - Bush
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - Player
   - Water
   - UI
-  - 
+  - Bush
   - 
   - 
   - 
