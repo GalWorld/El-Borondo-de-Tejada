@@ -33,6 +33,11 @@ public class MovementController : MonoBehaviour
     [Tooltip("The distance used for raycasting to check ground collision.")]
     [SerializeField] private float raycastDistance;
 
+    [Header("Sounds Controller")]
+    [SerializeField] private SoundsCatController soundsCatController;
+    [SerializeField] private GameObject audioSource;
+    [SerializeField] private float walkPitch;
+
     [Header("Mouse Cursor Settings")]
     public bool cursorLocked = true;
     public bool cursorInputForLook = true;
@@ -59,7 +64,7 @@ public class MovementController : MonoBehaviour
     private float currentSpeed;
 
     //Speed fot the animator
-    private float animSpeed = 0f; 
+    private float animSpeed = 0f;
 
     //Auxiliar speed for SmoothDamp
     private float speedVelocity = 0f; 
@@ -73,6 +78,7 @@ public class MovementController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>(); 
+        soundsCatController = GetComponent<SoundsCatController>();
         cameraTransform = Camera.main.transform;
     }
 
@@ -108,15 +114,18 @@ public class MovementController : MonoBehaviour
         playerInputs.Player.Jump.performed -= OnJump;
     }
     #endregion
-
+    
     #region Events
     private void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+        soundsCatController.SetAudio(0, walkPitch, true);
+        audioSource.SetActive(true);
     }
     private void CancelMove(InputAction.CallbackContext context)
     {
         moveInput = Vector2.zero;
+        audioSource.SetActive(false);
     }
     private void OnRun(InputAction.CallbackContext context)
     {
