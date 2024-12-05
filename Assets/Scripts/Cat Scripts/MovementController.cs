@@ -58,8 +58,14 @@ public class MovementController : MonoBehaviour
     //Handle the current player speed
     private float currentSpeed;
 
+    //Speed fot the animator
+    private float animSpeed = 0f;
 
-    private void Awake() {
+    //Auxiliar speed for SmoothDamp
+    private float speedVelocity = 0f;
+
+    private void Awake()
+    {
         playerInputs = new();
         OnApplicationFocus(cursorLocked); //This metod hide the mouse cursor during the game
     }
@@ -67,11 +73,12 @@ public class MovementController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>(); 
+        animator = GetComponent<Animator>();
         cameraTransform = Camera.main.transform;
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         HandleMovement();
         RotateCharacter();
         ValidationJump();
@@ -79,7 +86,8 @@ public class MovementController : MonoBehaviour
     }
 
     #region Player Input Management
-    private void OnEnable() {
+    private void OnEnable()
+    {
         playerInputs.Player.Enable();
 
         playerInputs.Player.Movement.performed += OnMove;
@@ -91,7 +99,8 @@ public class MovementController : MonoBehaviour
         playerInputs.Player.Jump.performed += OnJump;
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         playerInputs.Player.Disable();
 
         playerInputs.Player.Movement.performed -= OnMove;
@@ -120,7 +129,7 @@ public class MovementController : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if(context.performed && canJump)
+        if (context.performed && canJump)
         {
             Jump();
         }
@@ -128,20 +137,30 @@ public class MovementController : MonoBehaviour
     #endregion
 
     private void UpdateAnimator()
-    { 
-        // Directly assign movement input to the animator parameters
-        float horizontal = moveInput.x; // Horizontal input (-1 to 1)
-        float vertical = moveInput.y;   // Vertical input (-1 to 1)
+    {
+        // Calculate the target speed based on the movement magnitude
+        float rawSpeed = new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude;
 
-        // Update the parameters in the Animator
-        animator.SetFloat("Horizontal", horizontal);
-        animator.SetFloat("Vertical", vertical);
+        // Normalize the target speed
+        float targetSpeed = Mathf.Clamp01(rawSpeed / runSpeed);
+
+        // Smoothly transition the animation speed using SmoothDamp
+        animSpeed = Mathf.SmoothDamp(animSpeed, targetSpeed, ref speedVelocity, 0.2f);
+
+        // Correct small values to avoid fluctuations
+        if (Mathf.Abs(animSpeed) < 0.01f) animSpeed = 0f;
+
+        // Update the parameter Speed in the Animator
+        animator.SetFloat("SpeedAnim", animSpeed);
+        // Update the parameter isRunning in teh Animator
+        animator.SetBool("IsRunning", isRunning);
+
     }
 
     private void HandleMovement()
     {
         //if isRunning speed gonna be runSpeed
-        currentSpeed = isRunning ? runSpeed:walkSpeed;
+        currentSpeed = isRunning ? runSpeed : walkSpeed;
 
         // Get the foward and right direction of the camera
         Vector3 cameraForward = cameraTransform.forward;
@@ -183,7 +202,7 @@ public class MovementController : MonoBehaviour
         // create the raycast origin with a little desphase
         Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
 
-        Debug.DrawRay(rayOrigin, dwn * raycastDistance, Color.yellow); 
+        Debug.DrawRay(rayOrigin, dwn * raycastDistance, Color.yellow);
 
         /* if the raycast hit with other collider in direction down can Jump 
         additionally the raycast gonna ignore the player layer*/
@@ -193,6 +212,8 @@ public class MovementController : MonoBehaviour
     {
         //applies an upward force to the player
         rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
+        //Updating the trigger of Jump
+        animator.SetTrigger("Jump");
     }
 
     private void OnApplicationFocus(bool hasFocus)
