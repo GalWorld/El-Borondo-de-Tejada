@@ -37,7 +37,7 @@ public class PuzzleManager : MonoBehaviour
 
     private void PuzzleFinished()
     {
-        Debug.Log("Puzzle Completed");
+        //Debug.Log("Puzzle Completed");
 
           if (catManager != null)
         {
