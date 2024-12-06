@@ -7,14 +7,13 @@ public class PlayerInteractUI : MonoBehaviour
 {
     private GameObject uiImage;
     private Text interactText;
-    private PlayerInteract playerInteract;
+    [SerializeField] private PlayerInteract playerInteract;
     public bool _IsInteract;
 
     private void Awake() 
     {
         uiImage = transform.GetChild(0).gameObject;
         interactText = transform.GetChild(1).GetComponent<Text>();
-        playerInteract = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteract>();
     }
 
     private void FixedUpdate()
