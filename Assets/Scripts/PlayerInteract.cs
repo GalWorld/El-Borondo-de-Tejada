@@ -82,6 +82,12 @@ public class PlayerInteract : MonoBehaviour
     {
         Debug.Log($"Exited range of: {interactable.GetInteractText()}");
 
+        NPCInteractable npc = interactable as NPCInteractable;
+        if (npc != null && npc.IsTyping())
+        {
+            npc.StopTyping();
+        }
+
         if (chatInterfaceUI != null)
         {
             chatInterfaceUI.SetActive(false);

@@ -98,4 +98,18 @@ public class NPCInteractable : MonoBehaviour, IInteractable
             currentMessageIndex = 0; 
         }
     }
+
+    public bool IsTyping()
+    {
+        return typingCoroutine != null;
+    }
+
+    public void StopTyping()
+    {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
+    }
 }

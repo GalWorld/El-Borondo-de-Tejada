@@ -589,8 +589,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 0}
-  walkSpeed: 4
-  runSpeed: 6
+  walkSpeed: 1.5
+  runSpeed: 3
   rotationSpeed: 7
   isRunning: 0
   jumpForce: 3
@@ -613,6 +613,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactRange: 2
+  interactCooldown: 0.5
+  chatInterfaceUI: {fileID: 0}
+  playerInteractUI: {fileID: 0}
 --- !u!114 &5433048573489315684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -731,7 +734,7 @@ GameObject:
   - component: {fileID: 7966644899172892170}
   m_Layer: 3
   m_Name: DEF_hand.R_end
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -816,7 +819,7 @@ GameObject:
   - component: {fileID: 7246306118250975924}
   m_Layer: 3
   m_Name: DEF_toe.L_end
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1158,7 +1161,7 @@ GameObject:
   - component: {fileID: 1853068212905594285}
   m_Layer: 3
   m_Name: DEF_toe.R_end
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1243,7 +1246,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cf22ab79c8f3beb4faa71c823e8b4d55, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1252,7 +1255,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 2
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2038,7 +2041,7 @@ GameObject:
   - component: {fileID: 6544442004649508296}
   m_Layer: 3
   m_Name: DEF_hand.L_end
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
