@@ -67,9 +67,10 @@ public class MovementController : MonoBehaviour
     private float animSpeed = 0f;
 
     //Auxiliar speed for SmoothDamp
-    private float speedVelocity = 0f; 
+    private float speedVelocity = 0f;
 
-    private void Awake() {
+    private void Awake()
+    {
         playerInputs = new();
         OnApplicationFocus(cursorLocked); //This metod hide the mouse cursor during the game
     }
@@ -77,12 +78,13 @@ public class MovementController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>(); 
+        animator = GetComponent<Animator>();
         soundsCatController = GetComponent<SoundsCatController>();
         cameraTransform = Camera.main.transform;
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         HandleMovement();
         RotateCharacter();
         ValidationJump();
@@ -90,7 +92,8 @@ public class MovementController : MonoBehaviour
     }
 
     #region Player Input Management
-    private void OnEnable() {
+    private void OnEnable()
+    {
         playerInputs.Player.Enable();
 
         playerInputs.Player.Movement.performed += OnMove;
@@ -102,7 +105,8 @@ public class MovementController : MonoBehaviour
         playerInputs.Player.Jump.performed += OnJump;
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         playerInputs.Player.Disable();
 
         playerInputs.Player.Movement.performed -= OnMove;
@@ -114,7 +118,7 @@ public class MovementController : MonoBehaviour
         playerInputs.Player.Jump.performed -= OnJump;
     }
     #endregion
-    
+
     #region Events
     private void OnMove(InputAction.CallbackContext context)
     {
@@ -134,15 +138,15 @@ public class MovementController : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if(context.performed && canJump)
+        if (context.performed && canJump)
         {
             Jump();
         }
     }
     #endregion
 
-     private void UpdateAnimator()
-    { 
+    private void UpdateAnimator()
+    {
         // Calculate the target speed based on the movement magnitude
         float rawSpeed = new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude;
 
@@ -155,14 +159,17 @@ public class MovementController : MonoBehaviour
         // Correct small values to avoid fluctuations
         if (Mathf.Abs(animSpeed) < 0.01f) animSpeed = 0f;
 
-        // Update the parameter in the Animator
+        // Update the parameter Speed in the Animator
         animator.SetFloat("SpeedAnim", animSpeed);
+        // Update the parameter isRunning in teh Animator
+        animator.SetBool("IsRunning", isRunning);
+
     }
 
     private void HandleMovement()
     {
         //if isRunning speed gonna be runSpeed
-        currentSpeed = isRunning ? runSpeed:walkSpeed;
+        currentSpeed = isRunning ? runSpeed : walkSpeed;
 
         // Get the foward and right direction of the camera
         Vector3 cameraForward = cameraTransform.forward;
@@ -204,7 +211,7 @@ public class MovementController : MonoBehaviour
         // create the raycast origin with a little desphase
         Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
 
-        Debug.DrawRay(rayOrigin, dwn * raycastDistance, Color.yellow); 
+        Debug.DrawRay(rayOrigin, dwn * raycastDistance, Color.yellow);
 
         /* if the raycast hit with other collider in direction down can Jump 
         additionally the raycast gonna ignore the player layer*/
@@ -214,6 +221,8 @@ public class MovementController : MonoBehaviour
     {
         //applies an upward force to the player
         rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
+        //Updating the trigger of Jump
+        animator.SetTrigger("Jump");
     }
 
     private void OnApplicationFocus(bool hasFocus)
