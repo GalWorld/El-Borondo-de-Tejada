@@ -7,37 +7,64 @@ public class CatManager : MonoBehaviour
 {
     [SerializeField] GameObject catInCurrentScene; 
     [SerializeField] private string nextSceneName; 
+    [SerializeField] GameObject puzzleCanvas;
+    public static CatManager instance; //Instance for scene change
 
+    private void Awake()
+    {
+
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject); // Keep instance
+        }
+        else
+        {
+            Destroy(gameObject); // Destroy other instances 
+        }
+    }
     public void SwapCats()
     {
-        // Desactivamos el Cat de la escena actual
-        if (catInCurrentScene != null)
-        {
-            catInCurrentScene.SetActive(false);
-        }
+        catInCurrentScene.SetActive(false);//Deactivate the current cat
+        
+        puzzleCanvas.SetActive(true);//Activate Canvas
 
-        // Cargar la siguiente escena y activar el Cat en ella
+        Cursor.lockState = CursorLockMode.None; //Activate mouse
+        
+
         StartCoroutine(ActivateCatInNextScene());
+    }
+
+    public void GoBackToPlay()
+    {
+        //this function is for the play button
+
+        puzzleCanvas.SetActive(false); //Deactivate the canvas
+
+        Cursor.lockState = CursorLockMode.Locked;//Deactivate the mouse
+
     }
 
     private IEnumerator ActivateCatInNextScene()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextSceneName);
+        yield return new WaitForSeconds(5); //Wait 5 seconds to start
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextSceneName);//Load the next scene depends on the name
 
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
 
-        Scene nextScene = SceneManager.GetSceneByName(nextSceneName);
+        Scene nextScene = SceneManager.GetSceneByName(nextSceneName); //It have to validate if the scene is valid
         if (nextScene.IsValid())
         {
-            GameObject[] rootObjects = nextScene.GetRootGameObjects();
+            GameObject[] rootObjects = nextScene.GetRootGameObjects(); //Look for ever object in the scene
             foreach (GameObject obj in rootObjects)
             {
                 if (obj.CompareTag("Cat")) 
                 {
-                    obj.SetActive(true); 
+                    obj.SetActive(true); //Activate the cat 
                     break;
                 }
             }
