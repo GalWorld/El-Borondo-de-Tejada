@@ -198,7 +198,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7092541350514255225}
-  - component: {fileID: 5050317986764158699}
+  - component: {fileID: 249814390625207533}
   m_Layer: 0
   m_Name: Park-Bench7
   m_TagString: Untagged
@@ -224,8 +224,8 @@ Transform:
   - {fileID: 1386841331194857965}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &5050317986764158699
-MeshCollider:
+--- !u!65 &249814390625207533
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -242,10 +242,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1687187894724005716, guid: 4881967a7c346984f8d4559b08141325, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 1.607419, y: 0.54558563, z: 1}
+  m_Center: {x: -0.0024405122, y: 0.35219002, z: 4.5683787e-12}
 --- !u!1 &7885415886915911951
 GameObject:
   m_ObjectHideFlags: 0

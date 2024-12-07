@@ -175,7 +175,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3167166540051383711}
-  - component: {fileID: 5483654384657269164}
+  - component: {fileID: 997690894841443184}
+  - component: {fileID: 165723869745645852}
   m_Layer: 0
   m_Name: Park-Bench3
   m_TagString: Untagged
@@ -200,8 +201,8 @@ Transform:
   - {fileID: 3999441769840215546}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &5483654384657269164
-MeshCollider:
+--- !u!65 &997690894841443184
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -218,7 +219,27 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3032934717660054078, guid: c5002fd1bbf68314b9dc38b5d8fb8276, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 2.2314606, y: 0.45670605, z: 0.7527504}
+  m_Center: {x: -0.0035476685, y: 0.24616957, z: 0.1236248}
+--- !u!65 &165723869745645852
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2359843996201934629}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.14402, y: 0.60746765, z: 0.17732239}
+  m_Center: {x: 0.021503448, y: 0.63713455, z: -0.23910904}

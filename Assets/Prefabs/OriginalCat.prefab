@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7755480493043195359}
-  - component: {fileID: 6262212782573783916}
+  - component: {fileID: 8832935256534745986}
   m_Layer: 3
   m_Name: claw_b.L
   m_TagString: Untagged
@@ -63,8 +63,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7883134694507800543}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &6262212782573783916
-CapsuleCollider:
+--- !u!65 &8832935256534745986
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -81,11 +81,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.018724408
-  m_Height: 0.075607575
-  m_Direction: 1
-  m_Center: {x: 0.0016847148, y: 0.008832157, z: 0.0022124795}
+  serializedVersion: 3
+  m_Size: {x: 0.1215304, y: 0.06084151, z: 0.044904415}
+  m_Center: {x: -0.03514418, y: 0.0080034435, z: 0.0053256075}
 --- !u!1 &240770452699245805
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +453,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1663183566899647837}
-  - component: {fileID: 4137902189200471114}
+  - component: {fileID: 3010462543872239303}
   m_Layer: 3
   m_Name: claw_f.L
   m_TagString: Untagged
@@ -478,8 +476,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2710756671271969656}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &4137902189200471114
-CapsuleCollider:
+--- !u!65 &3010462543872239303
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -496,11 +494,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.018724408
-  m_Height: 0.075607575
-  m_Direction: 1
-  m_Center: {x: 0.0016847148, y: 0.008832157, z: 0.0022124795}
+  serializedVersion: 3
+  m_Size: {x: 0.1215304, y: 0.06084151, z: 0.044904415}
+  m_Center: {x: -0.03514418, y: 0.0080034435, z: 0.0053256075}
 --- !u!1 &2326526603129778272
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,7 +854,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5474553353441111203}
-  - component: {fileID: 5815176023572245511}
   m_Layer: 3
   m_Name: claw_b.R
   m_TagString: Untagged
@@ -881,29 +876,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6120686042474179298}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &5815176023572245511
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3792997479759741208}
-  m_Material: {fileID: 13400000, guid: f6f22f100a6ebb74b9065c75c3a2bf71, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.018724408
-  m_Height: 0.075607575
-  m_Direction: 1
-  m_Center: {x: 0.0016847148, y: 0.008832157, z: 0.0022124795}
 --- !u!1 &3894291666134131077
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,14 +960,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 0}
-  walkSpeed: 1.5
-  runSpeed: 3
+  walkSpeed: 2
+  runSpeed: 3.5
   rotationSpeed: 7
   isRunning: 0
   jumpForce: 3
   raycastDistance: 0.15
-  soundsCatController: {fileID: 0}
-  audioSource: {fileID: 0}
+  soundsCatController: {fileID: 4892287327879506080}
+  audioSource: {fileID: 8851004813120006537}
   walkPitch: 0.3
   cursorLocked: 1
   cursorInputForLook: 1
@@ -1825,7 +1797,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5966529093231994340}
-  - component: {fileID: 2780814360709530690}
   m_Layer: 3
   m_Name: claw_f.R
   m_TagString: Untagged
@@ -1848,29 +1819,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2162672760233895442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2780814360709530690
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7911820398412535610}
-  m_Material: {fileID: 13400000, guid: f6f22f100a6ebb74b9065c75c3a2bf71, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.018724408
-  m_Height: 0.075607575
-  m_Direction: 1
-  m_Center: {x: 0.0016847148, y: 0.008832157, z: 0.0022124795}
 --- !u!1 &8065983173348131397
 GameObject:
   m_ObjectHideFlags: 0
