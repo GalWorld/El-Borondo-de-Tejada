@@ -5,66 +5,74 @@ using UnityEngine.SceneManagement;
 
 public class CatManager : MonoBehaviour
 {
-    [SerializeField] GameObject catInCurrentScene; 
+    [SerializeField] private GameObject catInCurrentScene; 
     [SerializeField] private string nextSceneName; 
-    [SerializeField] GameObject puzzleCanvas;
-    public static CatManager instance; //Instance for scene change
+    [SerializeField] private GameObject puzzleCanvas;
+
+    public static CatManager Instance { get; private set; } // Singleton Instance
 
     private void Awake()
     {
-
-        if (instance == null)
+        // Check if there's already an instance of this object
+        if (Instance == null)
         {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject); // Keep instance
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Keep this object across scenes
         }
         else
         {
-            Destroy(gameObject); // Destroy other instances 
+            Destroy(gameObject); // Destroy duplicates
+            return;
         }
     }
+
     public void SwapCats()
     {
-        catInCurrentScene.SetActive(false);//Deactivate the current cat
-        
-        puzzleCanvas.SetActive(true);//Activate Canvas
+        if (catInCurrentScene != null)
+        {
+            catInCurrentScene.SetActive(false); // Deactivate the current cat
+        }
 
-        Cursor.lockState = CursorLockMode.None; //Activate mouse
-        
+        if (puzzleCanvas != null)
+        {
+            puzzleCanvas.SetActive(true); // Activate Canvas
+        }
+
+        Cursor.lockState = CursorLockMode.None; // Activate mouse
 
         StartCoroutine(ActivateCatInNextScene());
     }
 
     public void GoBackToPlay()
     {
-        //this function is for the play button
+        if (puzzleCanvas != null)
+        {
+            puzzleCanvas.SetActive(false); // Deactivate the canvas
+        }
 
-        puzzleCanvas.SetActive(false); //Deactivate the canvas
-
-        Cursor.lockState = CursorLockMode.Locked;//Deactivate the mouse
-
+        Cursor.lockState = CursorLockMode.Locked; // Deactivate the mouse
     }
 
     private IEnumerator ActivateCatInNextScene()
     {
-        yield return new WaitForSeconds(5); //Wait 5 seconds to start
+        yield return new WaitForSeconds(5); // Wait 5 seconds to start
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextSceneName);//Load the next scene depends on the name
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextSceneName); // Load the next scene by name
 
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
 
-        Scene nextScene = SceneManager.GetSceneByName(nextSceneName); //It have to validate if the scene is valid
+        Scene nextScene = SceneManager.GetSceneByName(nextSceneName); // Validate if the scene is valid
         if (nextScene.IsValid())
         {
-            GameObject[] rootObjects = nextScene.GetRootGameObjects(); //Look for ever object in the scene
+            GameObject[] rootObjects = nextScene.GetRootGameObjects(); // Look for every object in the scene
             foreach (GameObject obj in rootObjects)
             {
-                if (obj.CompareTag("Cat")) 
+                if (obj.CompareTag("Cat"))
                 {
-                    obj.SetActive(true); //Activate the cat 
+                    obj.SetActive(true); // Activate the cat
                     break;
                 }
             }
