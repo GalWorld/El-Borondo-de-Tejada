@@ -30,8 +30,16 @@ public class MovementController : MonoBehaviour
     [Tooltip("The force applied to the player when jumping.")]
     [SerializeField] private float jumpForce;
 
+    [Tooltip("The waiting time to be able to execute the method jump again.")]
+    [SerializeField] private float cooldownJump;
+
     [Tooltip("The distance used for raycasting to check ground collision.")]
     [SerializeField] private float raycastDistance;
+
+    [Header("Slope Handling")]
+    [SerializeField] private float slopeRaycastDistance = 1.0f; 
+    [SerializeField] private float slopeRotationSpeed = 20.0f;  
+
 
     [Header("Sounds Controller")]
     [SerializeField] private SoundsCatController soundsCatController;
@@ -44,6 +52,7 @@ public class MovementController : MonoBehaviour
 
     // Tracks if the player is currently able to jump.
     private bool canJump = false;
+    private bool isCooldownJumpActive = false;
 
     // The Rigidbody component used for physics-based movement.
     private Rigidbody rb;
@@ -102,7 +111,7 @@ public class MovementController : MonoBehaviour
         playerInputs.Player.Run.performed += OnRun;
         playerInputs.Player.Run.canceled += OnRun;
 
-        playerInputs.Player.Jump.performed += OnJump;
+        playerInputs.Player.Jump.started += OnJump;
     }
 
     private void OnDisable()
@@ -115,7 +124,7 @@ public class MovementController : MonoBehaviour
         playerInputs.Player.Run.performed -= OnRun;
         playerInputs.Player.Run.canceled -= OnRun;
 
-        playerInputs.Player.Jump.performed -= OnJump;
+        playerInputs.Player.Jump.started -= OnJump;
     }
     #endregion
 
@@ -138,7 +147,7 @@ public class MovementController : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && canJump)
+        if (context.started && canJump && !isCooldownJumpActive)
         {
             Jump();
         }
@@ -163,7 +172,6 @@ public class MovementController : MonoBehaviour
         animator.SetFloat("SpeedAnim", animSpeed);
         // Update the parameter isRunning in teh Animator
         animator.SetBool("IsRunning", isRunning);
-
     }
 
     private void HandleMovement()
@@ -192,14 +200,22 @@ public class MovementController : MonoBehaviour
 
     private void RotateCharacter()
     {
+        // Get the slope rotation
+        Quaternion slopeRotation = GetSlopeRotation();
+        
         if (moveDirection != Vector3.zero)
         {
-            // calculates the rotation with respect to the direction of motion
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            // Calculate the rotation based on movement direction
+            Quaternion moveRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
 
-            // smooth interpolate between the actual rotation to target rotation 
-            // use .Slerp because the movement is smoother than other linear functions 
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            // Combine both rotations
+            transform.rotation = Quaternion.Slerp(transform.rotation, moveRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, slopeRotation, slopeRotationSpeed * Time.deltaTime);
+        }
+        else
+        {
+            // Apply slope rotation when idle
+            transform.rotation = Quaternion.Slerp(transform.rotation, slopeRotation, slopeRotationSpeed * Time.deltaTime);
         }
     }
 
@@ -213,16 +229,51 @@ public class MovementController : MonoBehaviour
 
         Debug.DrawRay(rayOrigin, dwn * raycastDistance, Color.yellow);
 
-        /* if the raycast hit with other collider in direction down can Jump 
-        additionally the raycast gonna ignore the player layer*/
-        canJump = Physics.Raycast(rayOrigin, dwn, raycastDistance, gameObject.layer);
+        // Check if the player is also not in the air (velocity in y axis is near 0)
+        bool isInAir = Mathf.Abs(rb.velocity.y) > 0.1f;
+
+        // Check if the raycast hits a collider in the down direction, ensuring we're on the ground
+        bool isGrounded = Physics.Raycast(rayOrigin, dwn, raycastDistance, gameObject.layer);
+
+        // Can jump only if both conditions are true: we're on the ground and not in the air
+        canJump = isGrounded && !isInAir;
     }
+
     private void Jump()
     {
         //applies an upward force to the player
         rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
         //Updating the trigger of Jump
         animator.SetTrigger("Jump");
+
+        // Start cooldown
+        StartCoroutine(JumpCooldownCoroutine());
+    }
+
+    private IEnumerator JumpCooldownCoroutine()
+    {
+        isCooldownJumpActive = true;
+        yield return new WaitForSeconds(cooldownJump);
+        isCooldownJumpActive = false;
+    }
+
+    private Quaternion GetSlopeRotation()
+    {
+        RaycastHit hit;
+        Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
+
+        if (Physics.Raycast(rayOrigin, Vector3.down, out hit, slopeRaycastDistance))
+        {
+            Vector3 surfaceNormal = hit.normal;
+
+            if (hit.collider.CompareTag("Terrain"))
+            {
+                // Align the "up" vector with the surface normal
+                return Quaternion.FromToRotation(transform.up, surfaceNormal) * transform.rotation;
+            }
+        }
+        // Default rotation if no slope is detected
+        return transform.rotation;
     }
 
     private void OnApplicationFocus(bool hasFocus)

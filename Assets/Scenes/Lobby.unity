@@ -659,7 +659,7 @@ PrefabInstance:
     - target: {fileID: 3010978369865156403, guid: 640fcf6c888d8ed4fab7e17dd943e4a2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.748268
+      value: -9.808
       objectReference: {fileID: 0}
     - target: {fileID: 3010978369865156403, guid: 640fcf6c888d8ed4fab7e17dd943e4a2,
         type: 3}
@@ -6649,19 +6649,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 405798662242849127, guid: 49df61c86d11e8142867719cce8bba97,
         type: 3}
-      propertyPath: audioSource
-      value: 
-      objectReference: {fileID: 1019333058}
-    - target: {fileID: 405798662242849127, guid: 49df61c86d11e8142867719cce8bba97,
-        type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 2085998698}
-    - target: {fileID: 405798662242849127, guid: 49df61c86d11e8142867719cce8bba97,
-        type: 3}
-      propertyPath: soundsCatController
-      value: 
-      objectReference: {fileID: 1019333059}
     - target: {fileID: 3911238713519336411, guid: 49df61c86d11e8142867719cce8bba97,
         type: 3}
       propertyPath: m_Name
@@ -6738,24 +6728,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1019333056}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1019333058 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8851004813120006537, guid: 49df61c86d11e8142867719cce8bba97,
-    type: 3}
-  m_PrefabInstance: {fileID: 1019333056}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1019333059 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4892287327879506080, guid: 49df61c86d11e8142867719cce8bba97,
-    type: 3}
-  m_PrefabInstance: {fileID: 1019333056}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 288bab8bd53e06640b22ecf77fd64e54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1019333060 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6414725843704832570, guid: 49df61c86d11e8142867719cce8bba97,
@@ -11685,7 +11657,7 @@ GameObject:
   - component: {fileID: 1772147432}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -11705,7 +11677,7 @@ TerrainCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 641bb3827930ade418231e59aad46d2e, type: 2}
