@@ -9,6 +9,15 @@ public class PuzzleManager : MonoBehaviour
     [SerializeField] CatManager catManager;
 
     [SerializeField] TriggerLogger[] triggerLogger; 
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip LampOn;
+    [SerializeField] private AudioClip LampOff;
+    [SerializeField] private AudioClip Win;
+    [SerializeField] private AudioClip Chains;
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Awake()
     {
@@ -26,6 +35,7 @@ public class PuzzleManager : MonoBehaviour
     {
         foreach (TriggerLogger cross in triggerLogger)
         {
+            audioSource.PlayOneShot(LampOn);
             if (!cross.isActivated)
             {
                 return;
@@ -34,11 +44,18 @@ public class PuzzleManager : MonoBehaviour
 
         PuzzleFinished();
     }
-
+    public void CheckIsOff()
+    {
+        audioSource.PlayOneShot(LampOff);
+    }
+    public void ChainsMove()
+    {
+        audioSource.PlayOneShot(Chains);
+    }
     private void PuzzleFinished()
     {
         //Debug.Log("Puzzle Completed");
-
+        audioSource.PlayOneShot(Win);
           if (catManager != null)
         {
             catManager.SwapCats();

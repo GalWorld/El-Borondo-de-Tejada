@@ -24,7 +24,7 @@ public class TargetMover : MonoBehaviour
     private IEnumerator MoveToPoint(Vector3 targetPosition)
     {
         isMoving = true;
-
+        PuzzleManager.Instance.ChainsMove();
         while (Vector3.Distance(transform.position, targetPosition) > 0.1f) // Check if we are close enough
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime); // Move towards the target
