@@ -12003,7 +12003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8438b3574859b81498e88673acd267a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameloadScene: Lobby2
+  nameloadScene: Lobby
   timeToFade: 2
   panel: {fileID: 1215870824}
 --- !u!4 &1994560102
