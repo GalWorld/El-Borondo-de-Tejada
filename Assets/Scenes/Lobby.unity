@@ -2738,6 +2738,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7122510256077211644, guid: e6b5e899631acd44b87a7179de44b423,
         type: 3}
+      propertyPath: m_Name
+      value: PauseUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7122510256077211644, guid: e6b5e899631acd44b87a7179de44b423,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

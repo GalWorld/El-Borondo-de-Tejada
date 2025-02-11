@@ -5,13 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menu.unity
     guid: 81dadd9c8b2624e47870864a500bc27f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lobby.unity
     guid: 85199a18ec9b64b4c86b507bb174ba77
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cerro3Cruces.unity
     guid: 8ecdd7b06c6e13544b7254eb05c6138a
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/TestPhotoMechanic.unity
+    guid: 37a34f13303fe9e42857a4f3db0d6936
   m_configObjects: {}
