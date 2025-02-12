@@ -21,9 +21,9 @@ public class PhotoCollectedCanvasController : MonoBehaviour
 
         photoCanvasCollected.SetActive(true); 
 
-        // titleText.text = photoData.title;
-        // descriptionText.text = photoData.description;
-        // displayImage.sprite = photoData.icon;
+        titleText.text = photoData.title;
+        descriptionText.text = photoData.description;
+        displayImage.sprite = photoData.icon;
 
         if (photoData.animation != null)
         {
@@ -46,5 +46,11 @@ public class PhotoCollectedCanvasController : MonoBehaviour
 
         // Reproducir la animación
         photoAnimator.Play(clip.name);
+    }
+    //This metod is executed when the exit button is pressed
+    public void ExitButton(){
+        photoCanvasCollected.SetActive(false); //turn off the Canvas GameObject, is executed here for scalable applications  
+        Debug.Log("Boton presionado");
+        //aqui haz lo que tu corazon te guíe Felipe
     }
 }

@@ -1681,6 +1681,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7358950011952697658}
   - component: {fileID: 8142119268523927957}
+  - component: {fileID: 4565872776475186217}
   m_Layer: 0
   m_Name: AnabellaNew
   m_TagString: Untagged
@@ -1696,10 +1697,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8636847527667290988}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -339.237, y: -206.76, z: 32.08}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1893744194591411027}
   - {fileID: 5577297207165809049}
@@ -1715,7 +1716,7 @@ Animator:
   m_GameObject: {fileID: 8636847527667290988}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 004605dfc469de141a5bfba9c24852d5, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a85f82ba51a269242a9c9cad28596cf6, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1726,6 +1727,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4565872776475186217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8636847527667290988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50874bd3ea258d44f93a6f308db069d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 8142119268523927957}
+  animationInterval: 6
 --- !u!1 &8674068337933205484
 GameObject:
   m_ObjectHideFlags: 0
