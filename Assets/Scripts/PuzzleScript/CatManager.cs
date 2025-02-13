@@ -67,11 +67,13 @@ public class CatManager : MonoBehaviour
         Scene nextScene = SceneManager.GetSceneByName(nextSceneName); // Validate if the scene is valid
         if (nextScene.IsValid())
         {
+            Debug.Log("La escena es valida");
             GameObject[] rootObjects = nextScene.GetRootGameObjects(); // Look for every object in the scene
             foreach (GameObject obj in rootObjects)
             {
                 if (obj.CompareTag("Cat"))
                 {
+                    Debug.Log("Encontró la gata");
                     obj.SetActive(true); // Activate the cat
                     break;
                 }
