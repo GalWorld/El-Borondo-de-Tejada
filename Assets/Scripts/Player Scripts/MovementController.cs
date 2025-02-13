@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,6 +10,7 @@ public class MovementController : MonoBehaviour
     [Header("Scene References")]
     [Tooltip("The transform of the camera used for determining movement direction.")]
     public Transform cameraTransform;
+    private CinemachineBrain cinemachineBrain;
 
     [Header("Movement Values")]
     [Tooltip("The speed at which the player walks.")]
@@ -90,14 +92,26 @@ public class MovementController : MonoBehaviour
         animator = GetComponent<Animator>();
         soundsCatController = GetComponent<SoundsCatController>();
         cameraTransform = Camera.main.transform;
+        cinemachineBrain = cameraTransform.GetComponent<CinemachineBrain>();
     }
 
     private void FixedUpdate()
     {
-        HandleMovement();
-        RotateCharacter();
-        ValidationJump();
-        UpdateAnimator();
+        if (GameController.Instance.CurrentState == GameState.Interacting)
+        {
+            LockCamera();
+            CancelAllMovement();
+            SetCursorState(false);
+        }
+        else
+        {
+            UnlockCamera();
+            SetCursorState(true);
+            HandleMovement();
+            RotateCharacter();
+            ValidationJump();
+            UpdateAnimator();
+        }
     }
 
     #region Player Input Management
@@ -286,4 +300,30 @@ public class MovementController : MonoBehaviour
         Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
     }
 
+    private void CancelAllMovement()
+    {
+        moveInput = Vector2.zero;
+        moveDirection = Vector3.zero;
+        rb.velocity = Vector3.zero;
+        
+        isRunning = false;
+        animator.SetFloat("SpeedAnim", 0f);
+        animator.SetBool("IsRunning", false);
+    }
+
+    private void LockCamera()
+    {
+        if (cinemachineBrain != null)
+        {
+            cinemachineBrain.enabled = false; // Disable Cinemachine control
+        }
+    }
+
+    private void UnlockCamera()
+    {
+        if (cinemachineBrain != null)
+        {
+            cinemachineBrain.enabled = true; // Re-enable Cinemachine control
+        }
+    }
 }

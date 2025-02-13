@@ -7,8 +7,9 @@ using UnityEngine;
 
 public static class SaveSystem
 {
+    // Define the file path where the save data will be stored
     private static string savePath = Application.persistentDataPath + "/photoProgress.dat";
-    private static readonly string encryptionKey = "MySecretKey12345"; // Debe ser exactamente de 16, 24 o 32 caracteres.
+    private static readonly string encryptionKey = "MySecretKey12345"; 
 
     public static void SaveCollectedPhotos(HashSet<string> collectedPhotoIDs)
     {
@@ -47,6 +48,7 @@ public static class SaveSystem
 
     public static void DeleteSave()
     {
+        // Check if the save file exists and delete it
         if (File.Exists(savePath))
         {
             File.Delete(savePath);
@@ -58,33 +60,42 @@ public static class SaveSystem
     {
         using (Aes aes = Aes.Create())
         {
+            // Set the encryption key and initialization vector (IV)
             aes.Key = Encoding.UTF8.GetBytes(encryptionKey);
-            aes.IV = new byte[16]; // Vector de inicialización vacío para simplificar.
+            aes.IV = new byte[16]; // Using a zeroed IV (not the best security practice)
 
             ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+            // Convert the input ID into bytes and encrypt it
             byte[] inputBytes = Encoding.UTF8.GetBytes(id);
             byte[] encryptedBytes = encryptor.TransformFinalBlock(inputBytes, 0, inputBytes.Length);
 
+            // Convert the encrypted bytes to Base64 string for storage
             return Convert.ToBase64String(encryptedBytes);
         }
     }
 
     private static string DecryptID(string encryptedID)
     {
+        // Set the encryption key and initialization vector (IV)
         using (Aes aes = Aes.Create())
         {
             aes.Key = Encoding.UTF8.GetBytes(encryptionKey);
-            aes.IV = new byte[16];
+            aes.IV = new byte[16]; // Must match the IV used during encryption
 
             ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+            // Convert the Base64 string back to bytes and decrypt it
             byte[] encryptedBytes = Convert.FromBase64String(encryptedID);
             byte[] decryptedBytes = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
-
+            
+            // Convert the decrypted bytes back to a string (original ID)
             return Encoding.UTF8.GetString(decryptedBytes);
         }
     }
 }
 
+// Data structure for storing collected photo IDs
 [System.Serializable]
 public class SaveData
 {

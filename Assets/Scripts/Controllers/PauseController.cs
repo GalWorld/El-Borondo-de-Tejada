@@ -28,12 +28,9 @@ public class PauseController : MonoBehaviour
 
     private void OnPause(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && GameController.Instance.TryPauseGame())
         {
-            if (GameController.Instance.CurrentState == GameState.Playing)
-                Pause();
-            else if (GameController.Instance.CurrentState == GameState.Pause)
-                Play();
+            Pause();
         }
     }
 

@@ -83,19 +83,24 @@ public class PlayerInteract : MonoBehaviour
         Debug.Log($"Exited range of: {interactable.GetInteractText()}");
 
         NPCInteractable npc = interactable as NPCInteractable;
-        if (npc != null && npc.IsTyping())
+        if (npc != null)
         {
-            npc.StopTyping();
-        }
+            if (npc.IsTyping())
+            {
+                npc.StopTyping();
+            }
 
-        if (chatInterfaceUI != null)
-        {
-            chatInterfaceUI.SetActive(false);
-        }
+            if (chatInterfaceUI != null)
+            {
+                chatInterfaceUI.SetActive(false);
+            }
 
-        if (playerInteractUI != null)
-        {
-            playerInteractUI.SetActive(false);
+            if (playerInteractUI != null)
+            {
+                playerInteractUI.SetActive(false);
+            }
+
+            GameController.Instance.SetGameState(GameState.Playing);
         }
     }
 

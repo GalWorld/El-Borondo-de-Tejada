@@ -5,39 +5,65 @@ using TMPro;
 
 public class NPCInteractable : MonoBehaviour, IInteractable
 {
+    [Tooltip("UI Panel that contains the chat interface.")]
     [SerializeField] private GameObject chatInterfaceUI;
+
+    [Tooltip("UI Element that shows the interaction prompt before starting dialogue.")]
     [SerializeField] private GameObject playerInteractUI;
-    [SerializeField] private TextMeshProUGUI  ownerNameText;
-    [SerializeField] private TextMeshProUGUI  chatText; 
+
+    [Tooltip("Text field to display the NPC's name.")]
+    [SerializeField] private TextMeshProUGUI ownerNameText;
+
+    [Tooltip("Text field where the chat dialogue will appear.")]
+    [SerializeField] private TextMeshProUGUI chatText;
+
+    [Tooltip("Image that displays the NPC's portrait.")]
     [SerializeField] private Image ownerImage;
+
+    [Tooltip("Text displayed when the player is prompted to interact.")]
     [SerializeField] private string interactText;
+
+    [Tooltip("Array of messages that make up the NPC's dialogue.")]
     [SerializeField] private DialogueMessage[] messages; 
 
     private int currentMessageIndex = 0;
     private Coroutine typingCoroutine;
 
+    void Start()
+    {
+        chatInterfaceUI.SetActive(true);
+        chatInterfaceUI.SetActive(false);
+    }
+
     public void Interact(Transform interactorTransform)
     {
-        if (chatInterfaceUI != null)
+        if (!chatInterfaceUI.activeSelf)
         {
-            if (!chatInterfaceUI.activeSelf)
+            chatInterfaceUI.SetActive(true);
+            playerInteractUI.SetActive(false);
+            
+            currentMessageIndex = 0;
+            GameController.Instance.SetGameState(GameState.Interacting);
+
+            if (typingCoroutine != null)
             {
-                chatInterfaceUI.SetActive(true);
-                playerInteractUI.SetActive(false);
-                ShowCurrentMessage();
+                StopCoroutine(typingCoroutine);
+                typingCoroutine = null;
+            }
+
+            ShowCurrentMessage();
+        }
+        else
+        {
+            if (typingCoroutine != null)
+            {
+                StopCoroutine(typingCoroutine);
+                typingCoroutine = null;
+                CompleteCurrentMessage();
             }
             else
             {
-                if (typingCoroutine != null)
-                {
-                    StopCoroutine(typingCoroutine);
-                    typingCoroutine = null;
-                    CompleteCurrentMessage();
-                }
-                else
-                {
-                    AdvanceMessage();
-                }
+                AdvanceMessage();
             }
         }
     }
@@ -60,7 +86,9 @@ public class NPCInteractable : MonoBehaviour, IInteractable
                 ownerImage.sprite = currentMessage.ownerImage;
 
             if (typingCoroutine != null)
-                StopCoroutine(typingCoroutine); 
+            {
+                StopCoroutine(typingCoroutine);
+            }
 
             typingCoroutine = StartCoroutine(TypeText(currentMessage.messageContent));
         }
@@ -69,11 +97,13 @@ public class NPCInteractable : MonoBehaviour, IInteractable
     private IEnumerator TypeText(string messageContent)
     {
         chatText.text = ""; 
+
         foreach (char c in messageContent)
         {
             chatText.text += c; 
-            yield return new WaitForSeconds(0.05f); 
+            yield return new WaitForSeconds(0.05f);
         }
+
         typingCoroutine = null; 
     }
 
@@ -95,7 +125,8 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         {
             chatInterfaceUI.SetActive(false);
             playerInteractUI.SetActive(true);
-            currentMessageIndex = 0; 
+            currentMessageIndex = 0;
+            GameController.Instance.SetGameState(GameState.Playing);
         }
     }
 

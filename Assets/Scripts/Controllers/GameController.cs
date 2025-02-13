@@ -5,7 +5,8 @@ public enum GameState
 {
     Menu,
     Playing,
-    Pause
+    Pause,
+    Interacting
 }
 
 public class GameController : MonoBehaviour
@@ -34,8 +35,24 @@ public class GameController : MonoBehaviour
         CurrentState = newState;
     }
 
+    public bool TryPauseGame()
+    {
+        if (CurrentState == GameState.Playing)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+
     public void CollectPhoto(PhotoData photo)
     {
+        if (CurrentState != GameState.Interacting)
+        {
+            Debug.LogWarning("⚠️ Cannot collect photo because game is not in Collecting state!");
+            return;
+        }
+
         if (!collectedPhotoIDs.Contains(photo.id))
         {
             collectedPhotoIDs.Add(photo.id);
@@ -57,5 +74,18 @@ public class GameController : MonoBehaviour
     private void LoadGame()
     {
         collectedPhotoIDs = SaveSystem.LoadCollectedPhotos();
+    }
+
+    private void DeleteSave()
+    {
+        SaveSystem.DeleteSave();
+        collectedPhotoIDs.Clear();
+        Debug.Log("🗑️ Save file deleted and data reset.");
+    }
+
+    // 🔹 This method can be assigned to a UI button
+    public void RequestDeleteSave()
+    {
+        DeleteSave();
     }
 }
