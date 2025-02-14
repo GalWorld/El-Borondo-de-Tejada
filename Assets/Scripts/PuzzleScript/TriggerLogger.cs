@@ -13,15 +13,15 @@ public class TriggerLogger : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.clip = LampCorrect;
-        audioSource.loop = true;
+        //audioSource.clip = LampCorrect;
+        audioSource.loop = false;
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(targetTag))
         {
             isActivated = true; 
-            audioSource.Play();
+            audioSource.PlayOneShot(LampCorrect);
             //Debug.Log($"{gameObject.name} Activated for {other.name}");
             PuzzleManager.Instance.CheckPuzzleCompletion(); 
         }
