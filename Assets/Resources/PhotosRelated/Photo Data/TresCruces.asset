@@ -17,9 +17,7 @@ MonoBehaviour:
   description: "El Cerro de las Tres Cruces es un emblem\xE1tico promontorio ubicado
     al noroccidente de Santiago de Cali, Colombia, que se eleva a 1.480 metros sobre
     el nivel del mar. En su cima se erige un monumento compuesto por tres imponentes
-    cruces de concreto, visibles desde diversos puntos de la ciudad. La cruz central
-    mide 26 metros de altura y 11 metros de ancho, mientras que las dos cruces laterales
-    tienen 22 metros de altura y 8 metros de ancho cada una. "
+    cruces de concreto, visibles desde diversos puntos de la ciudad.  "
   icon: {fileID: 21300000, guid: 954f1c95a719cde44b352c1a6538c25a, type: 3}
   animation: {fileID: 7400000, guid: a59657078c28870488d4c8e4ea74b675, type: 2}
   image360: {fileID: 0}

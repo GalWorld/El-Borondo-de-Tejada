@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class PhotoCollectedCanvasController : MonoBehaviour
 {
     [Header("Canvas Settings")]
-    [SerializeField] private Image displayImage;
     [SerializeField] private Text titleText;
     [SerializeField] private Text descriptionText;
 
@@ -23,12 +22,13 @@ public class PhotoCollectedCanvasController : MonoBehaviour
 
         titleText.text = photoData.title;
         descriptionText.text = photoData.description;
-        displayImage.sprite = photoData.icon;
 
         if (photoData.animation != null)
         {
             PlayAnimation(photoData.animation);
         }
+
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private void PlayAnimation(AnimationClip clip)
@@ -39,18 +39,19 @@ public class PhotoCollectedCanvasController : MonoBehaviour
             return;
         }
 
-        // Crear un AnimatorOverrideController para instanciar el AnimationClip
+        // Create an AnimatorOverrideController to instantiate the AnimationClip
         AnimatorOverrideController overrideController = new AnimatorOverrideController(photoAnimator.runtimeAnimatorController);
         overrideController["DefaultAnimation"] = clip; 
         photoAnimator.runtimeAnimatorController = overrideController;
 
-        // Reproducir la animación
         photoAnimator.Play(clip.name);
     }
+
     //This metod is executed when the exit button is pressed
-    public void ExitButton(){
-        photoCanvasCollected.SetActive(false); //turn off the Canvas GameObject, is executed here for scalable applications  
-        Debug.Log("Boton presionado");
-        //aqui haz lo que tu corazon te guíe Felipe
+    public void ExitButton()
+    {
+        photoCanvasCollected.SetActive(false); 
+        Cursor.lockState = CursorLockMode.Locked;
+        GameController.Instance.SetGameState(GameState.Playing); 
     }
 }

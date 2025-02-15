@@ -33,19 +33,17 @@ public class PhotoPickup : MonoBehaviour, IInteractable
     {
         if (PhotoCollectedCanvasController != null)
         {
+            Debug.Log(GameController.Instance.CurrentState);
             PhotoCollectedCanvasController.ShowAnimationAboutPhoto(photoData);
-            // GameController.Instance.CollectPhoto(photoData);
+            GameController.Instance.CollectPhoto(photoData);
             gameObject.SetActive(false);
+            GameController.Instance.SetGameState(GameState.Interacting);
+            Debug.Log(GameController.Instance.CurrentState);
         }
     }
 
     public string GetInteractText()
     {
         return "Presiona 'E' para recoger la foto";
-    }
-
-    private void CollectPhoto()
-    {
-
     }
 }
