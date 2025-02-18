@@ -19,8 +19,8 @@ public class PhotoData : ScriptableObject
     [Tooltip("Animation clip that plays when the photo is collected.")]
     public AnimationClip animation;
 
-    [Tooltip("360-degree image associated with the photo.")]
-    public Texture2D image360;
+    [Tooltip("360-degree skybox material associated with the photo.")]
+    public Material skyboxMaterial;
 
     [Tooltip("List of interesting facts related to the photo.")]
     public List<string> funFacts;

@@ -20,7 +20,7 @@ MonoBehaviour:
     cruces de concreto, visibles desde diversos puntos de la ciudad.  "
   icon: {fileID: 21300000, guid: 954f1c95a719cde44b352c1a6538c25a, type: 3}
   animation: {fileID: 7400000, guid: a59657078c28870488d4c8e4ea74b675, type: 2}
-  image360: {fileID: 0}
+  skyboxMaterial: {fileID: 2100000, guid: 6014af269cb2bf0489bc8a909811e6ff, type: 2}
   funFacts:
   - "El Buziraco: Seg\xFAn la tradici\xF3n, en 1837, los frailes Vicente y Juan Cuesta
     promovieron la colocaci\xF3n de tres cruces de guadua en la cima del cerro para

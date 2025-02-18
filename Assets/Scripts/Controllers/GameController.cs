@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public enum GameState
@@ -23,10 +24,12 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        
         LoadGame();
+        // DeleteSave();
         CurrentState = GameState.Menu;
     }
 
@@ -49,16 +52,57 @@ public class GameController : MonoBehaviour
     {
         if (CurrentState != GameState.Interacting)
         {
-            Debug.LogWarning("⚠️ Cannot collect photo because game is not in Collecting state!");
+            Debug.Log("⚠️ Cannot collect photo because game is not in Collecting state!");
             return;
         }
 
         if (!collectedPhotoIDs.Contains(photo.id))
         {
             collectedPhotoIDs.Add(photo.id);
-            SaveGame();
             Debug.Log($"📸 Collected new photo: {photo.title}");
+            SaveGame();
         }
+    }
+
+    public void SetupPhotoSceneUI()
+    {
+        GameObject photoCanvas = FindAnyObjectByType<Canvas>().gameObject;
+        Debug.Log(photoCanvas.name);
+        if (photoCanvas == null)
+        {
+            Debug.LogError("❌ No PhotoScene UI found!");
+            return;
+        }
+
+        Button returnButton = photoCanvas.transform.Find("BackLobby")?.GetComponent<Button>();
+        Debug.Log(returnButton.name);
+        if (returnButton != null)
+        {
+            returnButton.onClick.RemoveAllListeners();
+            returnButton.onClick.AddListener(ReturnToLobby);
+        }
+
+        EnableMouseControl();
+    }
+
+    public void ReturnToLobby()
+    {
+        SceneController.LoadNewScene("Lobby");
+        SetGameState(GameState.Playing);
+    }
+
+    private void EnableMouseControl()
+    {
+        CameraPhotoSceneController cameraController = Camera.main.GetComponent<CameraPhotoSceneController>();
+        if (cameraController != null)
+        {
+            cameraController.allowMouseLook = true;
+        }
+    }
+
+    public HashSet<string> GetCollectedPhotoIDs()
+    {
+        return collectedPhotoIDs;
     }
 
     public bool HasCollectedPhoto(string photoID)

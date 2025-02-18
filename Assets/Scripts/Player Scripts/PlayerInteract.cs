@@ -69,8 +69,6 @@ public class PlayerInteract : MonoBehaviour
 
     private void OnInteractableEnter(IInteractable interactable)
     {
-        Debug.Log($"Entered range of: {interactable.GetInteractText()}");
-
         canInteract = true;
         if (playerInteractUI != null)
         {
@@ -80,8 +78,6 @@ public class PlayerInteract : MonoBehaviour
 
     private void OnInteractableExit(IInteractable interactable)
     {
-        Debug.Log($"Exited range of: {interactable.GetInteractText()}");
-
         NPCInteractable npc = interactable as NPCInteractable;
         if (npc != null)
         {

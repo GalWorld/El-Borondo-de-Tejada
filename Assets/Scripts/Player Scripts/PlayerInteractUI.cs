@@ -8,7 +8,6 @@ public class PlayerInteractUI : MonoBehaviour
     private GameObject uiImage;
     private Text interactText;
     [SerializeField] private PlayerInteract playerInteract;
-    public bool _IsInteract;
 
     private void Awake() 
     {
@@ -18,18 +17,18 @@ public class PlayerInteractUI : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameController.Instance.CurrentState != GameState.Playing)
+        {
+            Hide();
+            return;
+        }
+        
         if (playerInteract.GetInteractableObject() != null)
         {
             Show(playerInteract.GetInteractableObject());
         } else 
         {
             Hide();
-        }
-
-        if (_IsInteract) 
-        { 
-            Hide(); 
-            _IsInteract = false;
         }
     }
 

@@ -1,3 +1,4 @@
 {
-    "encryptionKey": "GalWorld tu papá"
+    "_comment": "The key must be exactly 16 characters long.",
+    "encryptionKey": "GalWorldtupapa10"
 }

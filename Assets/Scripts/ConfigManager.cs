@@ -6,6 +6,12 @@ public static class ConfigManager
     private static string configPath = Path.Combine(Application.streamingAssetsPath, "config.json");
     private static string encryptionKey;
 
+    [System.Serializable]
+    private class ConfigData
+    {
+        public string encryptionKey;
+    }
+
     public static string GetEncryptionKey()
     {
         if (!string.IsNullOrEmpty(encryptionKey))
@@ -25,11 +31,5 @@ public static class ConfigManager
             Debug.LogError("⚠️ Config file not found! Encryption key missing.");
             return null;
         }
-    }
-
-    [System.Serializable]
-    private class ConfigData
-    {
-        public string encryptionKey;
     }
 }

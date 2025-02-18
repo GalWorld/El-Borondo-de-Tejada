@@ -19,6 +19,12 @@ public class PhotoPickup : MonoBehaviour, IInteractable
     {
         startPosition = transform.position;
         PhotoCollectedCanvasController = FindAnyObjectByType<PhotoCollectedCanvasController>();
+
+        // Check if the photo has already been collected
+        if (GameController.Instance.HasCollectedPhoto(photoData.id))
+        {
+            gameObject.SetActive(false);
+        }
     }
     
     void FixedUpdate()
@@ -33,12 +39,10 @@ public class PhotoPickup : MonoBehaviour, IInteractable
     {
         if (PhotoCollectedCanvasController != null)
         {
-            Debug.Log(GameController.Instance.CurrentState);
+            GameController.Instance.SetGameState(GameState.Interacting);
             PhotoCollectedCanvasController.ShowAnimationAboutPhoto(photoData);
             GameController.Instance.CollectPhoto(photoData);
             gameObject.SetActive(false);
-            GameController.Instance.SetGameState(GameState.Interacting);
-            Debug.Log(GameController.Instance.CurrentState);
         }
     }
 
