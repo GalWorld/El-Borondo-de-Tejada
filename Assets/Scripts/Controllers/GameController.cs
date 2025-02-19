@@ -17,6 +17,14 @@ public class GameController : MonoBehaviour
 
     public GameState CurrentState { get; private set; } = GameState.Menu;
 
+    public enum detectedDevice
+    {
+        desktop,
+        mobile,
+        console
+    }
+    public detectedDevice deviceType;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -31,6 +39,9 @@ public class GameController : MonoBehaviour
         LoadGame();
         // DeleteSave();
         CurrentState = GameState.Menu;
+
+        Debug.Log(SystemInfo.deviceType);
+        SwitchDevice();
     }
 
     public void SetGameState(GameState newState)
@@ -131,5 +142,31 @@ public class GameController : MonoBehaviour
     public void RequestDeleteSave()
     {
         DeleteSave();
+    }
+
+     private void SwitchDevice()
+    {
+        switch (SystemInfo.deviceType)
+        {
+            case DeviceType.Handheld:
+                deviceType = detectedDevice.mobile;
+                break;
+            
+            case DeviceType.Desktop:
+                deviceType = detectedDevice.desktop;
+                break;
+
+            case DeviceType.Console:
+                deviceType = detectedDevice.console;
+                break;
+            
+            case DeviceType.Unknown:
+                deviceType = detectedDevice.console;
+                break;
+            
+            default:
+                deviceType = detectedDevice.desktop;
+                break;
+        }
     }
 }
