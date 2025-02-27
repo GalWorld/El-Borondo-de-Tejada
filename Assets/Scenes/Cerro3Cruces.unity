@@ -836,6 +836,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2651446803296519958, guid: a6d43f0c82f6ea4448cb556a7626dfe2,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3149045616643895917, guid: a6d43f0c82f6ea4448cb556a7626dfe2,
         type: 3}
       propertyPath: playerInteract
@@ -16468,6 +16473,16 @@ PrefabInstance:
     - target: {fileID: 641088895831874720, guid: e9d66babcaed74545813a468ff261d2a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877758865602304407, guid: e9d66babcaed74545813a468ff261d2a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099509048837907068, guid: e9d66babcaed74545813a468ff261d2a,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6438436983291119674, guid: e9d66babcaed74545813a468ff261d2a,

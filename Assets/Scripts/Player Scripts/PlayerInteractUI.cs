@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerInteractUI : MonoBehaviour
 {
     private GameObject uiImage;
-    private Text interactText;
+    private TextMeshProUGUI interactText;
     [SerializeField] private PlayerInteract playerInteract;
 
     private void Awake() 
     {
         uiImage = transform.GetChild(0).gameObject;
-        interactText = transform.GetChild(1).GetComponent<Text>();
+        interactText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
     }
 
     private void FixedUpdate()
