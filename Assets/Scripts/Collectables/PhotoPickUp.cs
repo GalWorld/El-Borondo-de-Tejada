@@ -44,6 +44,10 @@ public class PhotoPickup : MonoBehaviour, IInteractable
             GameController.Instance.CollectPhoto(photoData);
             gameObject.SetActive(false);
         }
+        else
+        {
+            Debug.Log("PhotoCollectedCanvasController is missing!");
+        }
     }
 
     public string GetInteractText()

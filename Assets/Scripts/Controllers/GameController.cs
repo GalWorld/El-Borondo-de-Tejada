@@ -10,12 +10,28 @@ public enum GameState
     Interacting
 }
 
+[System.Serializable]
+public class GameStateWrapper
+{
+    public GameState state;
+}
+
 public class GameController : MonoBehaviour
 {
+    [SerializeField] private GameStateWrapper gameState; // This will be shown in the Inspector
     public static GameController Instance { get; private set; }
     private HashSet<string> collectedPhotoIDs = new HashSet<string>();
 
-    public GameState CurrentState { get; private set; } = GameState.Menu;
+    public GameState CurrentState 
+    { 
+        get => gameState.state; 
+        private set
+        {
+            gameState.state = value;
+        }
+    }
+
+    public static event System.Action<GameState> OnGameStateChanged;
 
     private void Awake()
     {
@@ -36,16 +52,7 @@ public class GameController : MonoBehaviour
     public void SetGameState(GameState newState)
     {
         CurrentState = newState;
-    }
-
-    public bool TryPauseGame()
-    {
-        if (CurrentState == GameState.Playing)
-        {
-            return true;
-        }
-        
-        return false;
+        OnGameStateChanged?.Invoke(newState); 
     }
 
     public void CollectPhoto(PhotoData photo)
@@ -66,8 +73,7 @@ public class GameController : MonoBehaviour
 
     public void SetupPhotoSceneUI()
     {
-        GameObject photoCanvas = FindAnyObjectByType<Canvas>().gameObject;
-        Debug.Log(photoCanvas.name);
+        GameObject photoCanvas = FindAnyObjectByType<Canvas>()?.gameObject;
         if (photoCanvas == null)
         {
             Debug.LogError("❌ No PhotoScene UI found!");
@@ -75,7 +81,6 @@ public class GameController : MonoBehaviour
         }
 
         Button returnButton = photoCanvas.transform.Find("BackLobby")?.GetComponent<Button>();
-        Debug.Log(returnButton.name);
         if (returnButton != null)
         {
             returnButton.onClick.RemoveAllListeners();
@@ -93,7 +98,7 @@ public class GameController : MonoBehaviour
 
     private void EnableMouseControl()
     {
-        CameraPhotoSceneController cameraController = Camera.main.GetComponent<CameraPhotoSceneController>();
+        CameraPhotoSceneController cameraController = Camera.main?.GetComponent<CameraPhotoSceneController>();
         if (cameraController != null)
         {
             cameraController.allowMouseLook = true;

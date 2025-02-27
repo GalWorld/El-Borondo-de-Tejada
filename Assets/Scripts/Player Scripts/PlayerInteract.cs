@@ -23,6 +23,7 @@ public class PlayerInteract : MonoBehaviour
         playerInputs.Player.Enable();
         playerInputs.Player.EnvInteraction.performed += OnInteractPerformed;
         playerInputs.Player.EnvInteraction.canceled += OnInteractCanceled;
+        GameController.OnGameStateChanged += HandleGameStateChanged;
     }
 
     private void OnDisable()
@@ -30,9 +31,10 @@ public class PlayerInteract : MonoBehaviour
         playerInputs.Player.Disable();
         playerInputs.Player.EnvInteraction.performed -= OnInteractPerformed;
         playerInputs.Player.EnvInteraction.canceled -= OnInteractCanceled;
+        GameController.OnGameStateChanged -= HandleGameStateChanged;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateInteractableObject();
     }
@@ -70,7 +72,8 @@ public class PlayerInteract : MonoBehaviour
     private void OnInteractableEnter(IInteractable interactable)
     {
         canInteract = true;
-        if (playerInteractUI != null)
+
+        if (GameController.Instance.CurrentState == GameState.Playing)
         {
             playerInteractUI.SetActive(true);
         }
@@ -116,6 +119,14 @@ public class PlayerInteract : MonoBehaviour
     private void OnInteractCanceled(InputAction.CallbackContext context)
     {
         canInteract = true;
+    }
+
+    private void HandleGameStateChanged(GameState newState)
+    {
+        if (newState != GameState.Playing)
+        {
+            playerInteractUI?.SetActive(false);
+        }
     }
 
     private void TryInteract()

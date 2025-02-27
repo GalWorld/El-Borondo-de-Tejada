@@ -41,7 +41,7 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         {
             chatInterfaceUI.SetActive(true);
             playerInteractUI.SetActive(false);
-            
+
             currentMessageIndex = 0;
             GameController.Instance.SetGameState(GameState.Interacting);
 
@@ -55,10 +55,8 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         }
         else
         {
-            if (typingCoroutine != null)
+            if (IsTyping())
             {
-                StopCoroutine(typingCoroutine);
-                typingCoroutine = null;
                 CompleteCurrentMessage();
             }
             else
@@ -75,7 +73,7 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 
     private void ShowCurrentMessage()
     {
-        if (messages.Length > 0)
+        if (messages.Length > 0 && currentMessageIndex < messages.Length)
         {
             DialogueMessage currentMessage = messages[currentMessageIndex];
 
@@ -88,6 +86,7 @@ public class NPCInteractable : MonoBehaviour, IInteractable
             if (typingCoroutine != null)
             {
                 StopCoroutine(typingCoroutine);
+                typingCoroutine = null;
             }
 
             typingCoroutine = StartCoroutine(TypeText(currentMessage.messageContent));
@@ -109,6 +108,12 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 
     private void CompleteCurrentMessage()
     {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
+
         DialogueMessage currentMessage = messages[currentMessageIndex];
         chatText.text = currentMessage.messageContent;
     }

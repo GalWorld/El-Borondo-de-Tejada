@@ -14,9 +14,9 @@ public class MenuController : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("start a fadeout");
-        StartCoroutine(FadeIn());
-
         GameController.Instance.SetGameState(GameState.Playing); 
+        
+        StartCoroutine(FadeIn());
     }
 
     public IEnumerator FadeIn()
