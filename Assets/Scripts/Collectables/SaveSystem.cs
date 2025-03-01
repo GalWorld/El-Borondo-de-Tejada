@@ -5,17 +5,20 @@ using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 
-// Data structure for storing collected photo IDs
+// Data structure for storing collected photo IDs and achievements
 [System.Serializable]
 public class SaveData
 {
     public List<string> collectedPhotos = new List<string>();
+    public List<bool> achievements = new List<bool>();
 }
 
 public static class SaveSystem
 {
     private static string savePath = Application.persistentDataPath + "/photoProgress.dat";
     private static readonly string encryptionKey = ConfigManager.GetEncryptionKey(); 
+    
+    // Method for save ONLY photos
     public static void SaveCollectedPhotos(HashSet<string> collectedPhotoIDs)
     {
         if (string.IsNullOrEmpty(encryptionKey))
@@ -30,33 +33,66 @@ public static class SaveSystem
             encryptedIDs.Add(EncryptID(id));
         }
 
-        string json = JsonUtility.ToJson(new SaveData { collectedPhotos = encryptedIDs });
+        SaveData saveData = new SaveData { collectedPhotos = encryptedIDs };
+
+        string json = JsonUtility.ToJson(saveData);
         File.WriteAllText(savePath, json);
         Debug.Log($"✅ Progress saved at {savePath}");
     }
 
-    public static HashSet<string> LoadCollectedPhotos()
+    // Method for save ONLY achivements
+    public static void SaveAchievements(List<bool> achievements)
+    {
+        if (string.IsNullOrEmpty(encryptionKey))
+        {
+            Debug.LogError("❌ Encryption key is missing. Cannot save data.");
+            return;
+        }
+
+        SaveData existingData = LoadSaveDataDirectly();
+        if (existingData == null)
+        {
+            existingData = new SaveData();
+        }
+
+        existingData.achievements = achievements;
+        
+        string json = JsonUtility.ToJson(existingData);
+        File.WriteAllText(savePath, json);
+        Debug.Log($"✅ Achievements saved at {savePath}");
+    }
+
+    // Method for directly load the save data
+    private static SaveData LoadSaveDataDirectly()
     {
         if (!File.Exists(savePath))
         {
-            Debug.Log("⚠️ No save file found, returning empty collection.");
-            return new HashSet<string>();
+            return null;
         }
 
         if (new FileInfo(savePath).Length == 0)
         {
-            Debug.Log("⚠️ Save file exists but is empty, returning empty collection.");
-            return new HashSet<string>();
+            return null;
         }
 
         if (string.IsNullOrEmpty(encryptionKey))
         {
             Debug.LogError("❌ Encryption key is missing. Cannot load data.");
-            return new HashSet<string>();
+            return null;
         }
 
         string json = File.ReadAllText(savePath);
-        SaveData data = JsonUtility.FromJson<SaveData>(json);
+        return JsonUtility.FromJson<SaveData>(json);
+    }
+
+    public static HashSet<string> LoadCollectedPhotos()
+    {
+        SaveData data = LoadSaveDataDirectly();
+        if (data == null)
+        {
+            Debug.Log("⚠️ No save file found or is empty, returning empty collection.");
+            return new HashSet<string>();
+        }
         
         HashSet<string> decryptedIDs = new HashSet<string>();
         foreach (string encryptedID in data.collectedPhotos)
@@ -65,6 +101,19 @@ public static class SaveSystem
         }
 
         return decryptedIDs;
+    }
+
+    // Method for load the achivements
+    public static List<bool> LoadAchievements()
+    {
+        SaveData data = LoadSaveDataDirectly();
+        if (data == null || data.achievements == null)
+        {
+            Debug.Log("⚠️ No achievements found, returning empty list.");
+            return new List<bool>();
+        }
+        
+        return data.achievements;
     }
 
     public static void DeleteSave()

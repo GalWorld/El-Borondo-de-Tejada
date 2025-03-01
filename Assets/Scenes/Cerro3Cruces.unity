@@ -8570,6 +8570,7 @@ MonoBehaviour:
   catInCurrentScene: {fileID: 316830829}
   nextSceneName: Lobby
   puzzleCanvas: {fileID: 1639587080}
+  catAchiveID: 0
 --- !u!4 &1142525275
 Transform:
   m_ObjectHideFlags: 0
@@ -8722,6 +8723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState:
     state: 1
+  achievementDefinitions: []
 --- !u!4 &1184917825
 Transform:
   m_ObjectHideFlags: 0

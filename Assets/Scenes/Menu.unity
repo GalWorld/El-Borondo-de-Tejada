@@ -12827,6 +12827,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 141835fe6b0964c42b432c7502680e34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState:
+    state: 0
+  achievementDefinitions:
+  - name: Anabella
+    unlocked: 0
 --- !u!1001 &2067256640
 PrefabInstance:
   m_ObjectHideFlags: 0

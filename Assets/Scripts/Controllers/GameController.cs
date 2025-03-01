@@ -16,11 +16,25 @@ public class GameStateWrapper
     public GameState state;
 }
 
+// Clase serializable para representar un logro individual
+[System.Serializable]
+public class AchievementCat
+{
+    public string name = "New Cat";
+    public bool unlocked = false;
+}
+
 public class GameController : MonoBehaviour
 {
     [SerializeField] private GameStateWrapper gameState; // This will be shown in the Inspector
     public static GameController Instance { get; private set; }
     private HashSet<string> collectedPhotoIDs = new HashSet<string>();
+    
+    // Lista serializada de logros para configurar desde el Inspector
+    [SerializeField] private List<AchievementCat> achievementDefinitions = new List<AchievementCat>();
+    
+    // Lista para almacenar el estado de los logros en tiempo de ejecución
+    private List<bool> achievements = new List<bool>();
 
     public GameState CurrentState 
     { 
@@ -32,6 +46,7 @@ public class GameController : MonoBehaviour
     }
 
     public static event System.Action<GameState> OnGameStateChanged;
+    public static event System.Action<int> OnAchievementUnlocked;
 
     private void Awake()
     {
@@ -115,20 +130,100 @@ public class GameController : MonoBehaviour
         return collectedPhotoIDs.Contains(photoID);
     }
 
+    // Methods for verify if the list have elements
+    private void EnsureAchievementListSize()
+    {
+        while (achievements.Count < achievementDefinitions.Count)
+        {
+            achievements.Add(false);
+        }
+        
+        if (achievements.Count > achievementDefinitions.Count)
+        {
+            achievements.RemoveRange(achievementDefinitions.Count, 
+                                    achievements.Count - achievementDefinitions.Count);
+        }
+    }
+
+    // Method for unlock an achivement
+    public void UnlockAchievement(int achievementID)
+    {
+        EnsureAchievementListSize();
+        
+        // check if the ID is valid
+        if (achievementID < 0 || achievementID >= achievements.Count)
+        {
+            Debug.LogError($"❌ Invalid achievement ID: {achievementID}. Max ID is {achievements.Count - 1}");
+            return;
+        }
+        
+        // check if the achive was unlock
+        if (!achievements[achievementID])
+        {
+            achievements[achievementID] = true;
+            
+            // update the achive boolean value in the List element
+            achievementDefinitions[achievementID].unlocked = true;
+            
+            Debug.Log($"🏆 Achievement unlocked: {achievementDefinitions[achievementID].name}");
+            SaveAchievements();
+            
+            // Notify other components
+            OnAchievementUnlocked?.Invoke(achievementID);
+        }
+    }
+    
+    // Check if the achive is unlocked
+    public bool IsAchievementUnlocked(int achievementID)
+    {
+        EnsureAchievementListSize();
+        
+        if (achievementID < 0 || achievementID >= achievements.Count)
+        {
+            Debug.LogError($"❌ Invalid achievement ID: {achievementID}. Max ID is {achievements.Count - 1}");
+            return false;
+        }
+        
+        return achievements[achievementID];
+    }
     private void SaveGame()
     {
         SaveSystem.SaveCollectedPhotos(collectedPhotoIDs);
+    }
+    
+    private void SaveAchievements()
+    {
+        SaveSystem.SaveAchievements(achievements);
     }
 
     private void LoadGame()
     {
         collectedPhotoIDs = SaveSystem.LoadCollectedPhotos();
+        achievements = SaveSystem.LoadAchievements();
+        
+        EnsureAchievementListSize();
+        
+        // update the achive boolean value in the achive definition
+        for (int i = 0; i < achievements.Count; i++)
+        {
+            achievementDefinitions[i].unlocked = achievements[i];
+        }
     }
 
     private void DeleteSave()
     {
         SaveSystem.DeleteSave();
         collectedPhotoIDs.Clear();
+        
+        // Reiniciar los logros
+        for (int i = 0; i < achievementDefinitions.Count; i++)
+        {
+            achievementDefinitions[i].unlocked = false;
+        }
+        
+        achievements.Clear();
+        EnsureAchievementListSize();
+        
         Debug.Log("🗑️ Save file deleted and data reset.");
     }
 
@@ -136,5 +231,24 @@ public class GameController : MonoBehaviour
     public void RequestDeleteSave()
     {
         DeleteSave();
+    }
+    
+    // Método para obtener la lista completa de logros (para UI)
+    public List<bool> GetAllAchievements()
+    {
+        EnsureAchievementListSize();
+        return new List<bool>(achievements);
+    }
+    
+    // Método para obtener el número total de logros
+    public int GetTotalAchievements()
+    {
+        return achievementDefinitions.Count;
+    }
+    
+    // Método para obtener todas las definiciones de logros (para UI)
+    public List<AchievementCat> GetAchievementDefinitions()
+    {
+        return achievementDefinitions;
     }
 }

@@ -8,6 +8,7 @@ public class CatManager : MonoBehaviour
     [SerializeField] private GameObject catInCurrentScene; 
     [SerializeField] private string nextSceneName; 
     [SerializeField] private GameObject puzzleCanvas;
+    [SerializeField] private int catAchiveID;
 
     public static CatManager Instance { get; private set; } // Singleton Instance
 
@@ -40,46 +41,13 @@ public class CatManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None; // Activate mouse
 
-        StartCoroutine(ActivateCatInNextScene());
+        GameController.Instance.UnlockAchievement(catAchiveID);
     }
 
     public void GoBackToPlay()
     {
-        if (puzzleCanvas != null)
-        {
-            puzzleCanvas.SetActive(false); // Deactivate the canvas
-        }
+        SceneController.LoadNewScene("Lobby");
 
         Cursor.lockState = CursorLockMode.Locked; // Deactivate the mouse
-    }
-
-    private IEnumerator ActivateCatInNextScene()
-    {
-        yield return new WaitForSeconds(5); // Wait 5 seconds to start
-
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextSceneName); // Load the next scene by name
-
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-
-        Scene nextScene = SceneManager.GetSceneByName(nextSceneName); // Validate if the scene is valid
-        if (nextScene.IsValid())
-        {
-            Debug.Log("La escena es valida");
-            GameObject[] rootObjects = nextScene.GetRootGameObjects(); // Look for every object in the scene
-            foreach (GameObject obj in rootObjects)
-            {
-                if (obj.CompareTag("Cat"))
-                {
-                    Debug.Log("Encontró la gata");
-                    obj.SetActive(true); // Activate the cat
-                    break;
-                }
-            }
-        }
-
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
     }
 }
